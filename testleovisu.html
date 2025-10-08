@@ -1,16 +1,113 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Visualisation Délinquance</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta charset="UTF-8" />
+  <title>Carte des cambriolages de logement en France</title>
+
+  <!-- D3.js -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <!-- PapaParse pour lire le CSV -->
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      text-align: center;
+    }
+
+    h1 {
+      margin-top: 20px;
+      color: #333;
+    }
+
+    #controls {
+      margin: 15px auto;
+      width: 60%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #yearValue {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    input[type="range"] {
+      width: 80%;
+      -webkit-appearance: none;
+      height: 8px;
+      border-radius: 8px;
+      background: #ddd;
+      outline: none;
+      transition: background 0.3s;
+      cursor: pointer;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #000;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    input[type="range"]::-webkit-slider-thumb:hover {
+      background: #000;
+    }
+
+    #map-container {
+      display: flex;
+      justify-content: center;
+    }
+
+    svg {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    #tooltip {
+      position: absolute;
+      opacity: 0;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 8px 12px;
+      border-radius: 4px;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+      pointer-events: none;
+      font-size: 14px;
+      color: #333;
+    }
+  </style>
 </head>
 <body>
-  <h1>Visualisation de la délinquance</h1>
 
-  <canvas id="chart" width="800" height="400"></canvas>
+  <h1>Nombre de vols dans la région Rhône-Alpes</h1>
 
+  <!-- Curseur Année -->
+  <div id="controls">
+    <div id="yearValue">Année : <span id="yearLabel">–</span></div>
+    <input type="range" id="yearSlider" min="0" max="10" value="0" step="1">
+  </div>
+
+  <!-- Conteneur de la carte -->
+  <div id="map-container">
+    <svg width="960" height="600"></svg>
+  </div>
+
+  <!-- Tooltip -->
+  <div id="tooltip"></div>
+
+  <!-- Script principal -->
   <script src="test.js"></script>
 </body>
 </html>

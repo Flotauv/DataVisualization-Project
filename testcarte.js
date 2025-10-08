@@ -1,95 +1,102 @@
-// Pb actuel il manque la corse et la nouvelle aquitaine pour le mapping il faut creusé la cause
-// On pourrait faire des paquet de donnée: homicide et violence, vol, stupéfiant
-// Passé à des donné départemental pourrait aussi aidé a faire des carte plus intéressante
-
 const width = 960;
 const height = 600;
 
+// SVG principal
 const svg = d3.select("svg")
   .attr("width", width)
   .attr("height", height);
 
 const tooltip = d3.select("#tooltip");
 
-// Projection centrée sur la France métropolitaine
+// Projection
 const projection = d3.geoMercator()
-  .center([2.5, 46.6])
-  .scale(2200)
+  .center([4.5, 45.75]) // ajuster longitude, latitude
+  .scale(3000)          // augmenter ou diminuer
   .translate([width / 2, height / 2]);
 
 const path = d3.geoPath().projection(projection);
 
-const regionNames = {
-  "01": "Auvergne-Rhône-Alpes",
-  "84": "Auvergne-Rhône-Alpes",
-  "02": "Hauts-de-France",
-  "03": "Grand Est",
-  "27": "Bourgogne-Franche-Comté",
-  "24": "Centre-Val de Loire",
-  "32": "Occitanie",
-  "44": "Pays de la Loire",
-  "28": "Normandie",
-  "76": "Normandie",
-  "04": "Provence-Alpes-Côte d'Azur",
-  "93": "Provence-Alpes-Côte d'Azur",
-  "11": "Ile-de-France",
-  "75": "Ile-de-France",
-  "94": "Ile-de-France",
-  "52": "Bretagne",
-  "53": "Bretagne"
-};
+// Échelle couleur
+const colorScale = d3.scaleSequential()
+  .domain([7000, 0]) // plus c’est haut, plus c’est rouge
+  .interpolator(d3.interpolateRdYlGn)
+  .unknown("#ccc");
 
-// Échelle de couleur
-const colorScale = d3.scaleThreshold()
-  .domain([1,5,10,20,50,100])
-  .range(["#FFEDA0","#FEB24C","#FD8D3C","#FC4E2A","#E31A1C","#BD0026","#800026"]);
+// Slider DOM
+const yearSlider = d3.select("#yearSlider");
+const yearLabel = d3.select("#yearLabel");
 
 // Charger le CSV
-Papa.parse("dataset/db_delinquance.csv", {
+Papa.parse("dataset/db_delinquance_dpt.csv", {
   download: true,
   header: true,
   delimiter: ";",
   complete: function(results) {
-    const data2024 = results.data.filter(d => d.annee === "2024");
+    const data = results.data;
 
-    const homicideData = {};
-    data2024.forEach(d => {
-      const code = d.Code_region;
-      const region = regionNames[code];
-      if (!region) return;
-      const nombre = parseInt(d.nombre) || 0;
-      if (!homicideData[region]) homicideData[region] = 0;
-      homicideData[region] += nombre;
-    });
+    // Extraire les années uniques triées
+    const years = [...new Set(data.map(d => d.annee))].sort();
 
-    // Charger le GeoJSON local
-    d3.json("geojson/regions-version-simplifiee.geojson")
-      .then(geojson => {
+    // Configurer le slider
+    yearSlider
+      .attr("min", 0)
+      .attr("max", years.length - 1)
+      .attr("value", 0);
 
-        // Filtrer métropole uniquement (si nécessaire)
-        const ultraCodes = ["971","972","973","974","976"];
-        geojson.features = geojson.features.filter(f => !ultraCodes.includes(f.properties.code));
+    yearLabel.text(years[0]);
 
-        // Dessiner les régions
-        svg.selectAll("path")
-          .data(geojson.features)
-          .enter()
+    // Charger GeoJSON
+    d3.json("geojson/departements-auvergne-rhone-alpes.geojson").then(geojson => {
+
+      function updateMap(selectedYear) {
+        console.log("🔄 Année :", selectedYear);
+
+        const filtered = data.filter(d =>
+          d.annee === selectedYear &&
+          d.indicateur === "Cambriolages de logement"
+        );
+
+        const cambriolages = {};
+        filtered.forEach(d => {
+          const code = d.Code_departement?.padStart(2, "0");
+          const nombre = parseInt(d.nombre) || 0;
+          cambriolages[code] = (cambriolages[code] || 0) + nombre;
+        });
+
+        const paths = svg.selectAll("path")
+          .data(geojson.features);
+
+        paths.enter()
           .append("path")
+          .merge(paths)
           .attr("d", path)
-          .attr("class", "region")
-          .attr("fill", d => colorScale(homicideData[d.properties.nom] || 0))
           .attr("stroke", "#fff")
           .attr("stroke-width", 1)
-          .on("mousemove", (event,d) => {
-            const region = d.properties.nom;
-            const count = homicideData[region] || 0;
-            tooltip.style("opacity",1)
-                   .style("left",(event.pageX+10)+"px")
-                   .style("top",(event.pageY+10)+"px")
-                   .html(`<strong>${region}</strong><br>Homicides en 2024: ${count}`);
+          .on("mousemove", (event, d) => {
+            const code = d.properties.code;
+            const nom = d.properties.nom;
+            const count = cambriolages[code] || 0;
+            tooltip.style("opacity", 1)
+              .style("left", (event.pageX + 10) + "px")
+              .style("top", (event.pageY + 10) + "px")
+              .html(`<strong>${nom}</strong><br>${count} cambriolages`);
           })
-          .on("mouseout", () => tooltip.style("opacity",0));
+          .on("mouseout", () => tooltip.style("opacity", 0))
+          .transition()
+          .duration(500)
+          .attr("fill", d => colorScale(cambriolages[d.properties.code] || 0));
+      }
 
+      // Initialisation
+      updateMap(years[0]);
+
+      // Mise à jour avec le slider
+      yearSlider.on("input", (event) => {
+        const index = +event.target.value;
+        const selectedYear = years[index];
+        yearLabel.text(selectedYear);
+        updateMap(selectedYear);
       });
+    });
   }
 });
