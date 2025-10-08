@@ -1,3 +1,7 @@
+// Pb actuel il manque la corse et la nouvelle aquitaine pour le mapping il faut creusé la cause
+// On pourrait faire des paquet de donnée: homicide et violence, vol, stupéfiant
+// Passé à des donné départemental pourrait aussi aidé a faire des carte plus intéressante
+
 const width = 960;
 const height = 600;
 
