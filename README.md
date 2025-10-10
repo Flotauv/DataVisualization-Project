@@ -27,3 +27,13 @@ Représentation de la région Auvergne Rhône Alpes avec les départements et le
 - Diagramme barre page 2 
 - Arrivée sur page 2 : délits et crimes cochés par defaut
 - Page 3 bulle pour les sous cat , graphique bulle  pour les sous délits , les axes :  y le pourcentage du sous délit par apport aux délits totaux du departement  x : pourcentage par apport à la region pour la categorie  
+
+## Contexte de la page d'acceuille
+
+Titre: 'La délinquance en Rhône-Alpes en un coup d’œil'
+       'La délinquance en Rhône-Alpes : chiffres et tendances'
+       'Rhône-Alpes face à la délinquance : le regard des données'
+
+       !!Retenu!! -> 'Evolution de la délinquance en Rhône-Alps'
+
+Contexte texte: 
