@@ -1,0 +1,88 @@
+/*Import des styles de police (Montserrat) */
+
+@import url(https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap);
+
+
+/* Caractère * fait référence à tous les caractères de la page */
+
+
+@font-face {
+        font-family:'Montaga';
+        src: url(../fonts/Montaga-Regular.ttf);
+    }
+
+* {
+    font-family: 'Montserrat', sans-serif;
+}
+body {
+    margin : 0 auto;
+}
+/* ========= SECTION HAUT-DE-PAGE==========*/
+
+section.Haut-de-page {
+    background-color:red;
+    background : url('');
+    height: 200px;
+    margin-left: 30px;
+}
+
+nav.nav {
+    display: flex;
+    justify-content: space-between;
+    background-color: blueviolet;
+    list-style: none;
+    
+    width: 25vh;
+    padding: 25px; /* marge interne */
+
+}
+
+/* Menu déroulant */
+nav.nav li {
+    color: black;
+}
+
+.Titre-page {
+    color: black;
+    background-color: brown;
+    font-size: 60px;
+    font-family: 'Montaga';
+    
+    
+
+}
+/*=======FIN SECTION HAUT-DE-PAGE===========*/
+
+
+/* ========= SECTION BOUTONS==========*/
+
+section.Boutons-à-cocher {
+    background-color: blue;
+    margin-top: 40px;
+    margin-left: 30px;
+    display: flex;
+    justify-content: space-between;
+    height: 3vh;
+    width: 15vh;
+    padding: 25px;
+    font-size: 20px;
+
+
+}
+
+section.Graphiques {
+    margin-left: 30px;
+
+}
+
+
+
+
+
+
+
+
+
+
+
