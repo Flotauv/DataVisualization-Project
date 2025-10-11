@@ -1,0 +1,101 @@
+/*Import des styles de police (Montserrat) */
+
+@import url(https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap);
+
+
+/* Caractère * fait référence à tous les caractères de la page */
+
+
+@font-face {
+        font-family:'Montaga';
+        src: url(../fonts/Montaga-Regular.ttf);
+    }
+
+* {
+    font-family: 'Montserrat', sans-serif;
+}
+body {
+    margin : 0 auto;
+}
+/* ========= SECTION HAUT-DE-PAGE==========*/
+
+section.Haut-de-page {
+    background-color:red; /* à supp ensuite*/
+    background : url('');
+    height: 200px;
+    margin-left: 30px;
+}
+
+nav.nav {
+    display: flex;
+    justify-content: space-between;
+    background-color: blueviolet; /*à supp ensuite*/
+    list-style: none;
+    
+    width: 25vh;
+    padding: 25px; /* marge interne */
+
+}
+
+/* Menu déroulant */
+nav.nav li {
+    color: black;
+}
+
+.Titre-page {
+    color: black;
+    background-color: brown;
+    font-size: 60px;
+    font-family: 'Montaga';
+    
+    
+
+}
+header.header-top img {
+    width: 300px;
+}
+/*=======FIN SECTION HAUT-DE-PAGE===========*/
+
+
+/* ========= SECTION BOUTONS==========*/ 
+/*Peut être supprimée pour vos besoins spécifiques*/
+
+section.Boutons-à-cocher {
+    background-color: blue; /*à supp ensuite*/
+    margin-top: 110px;
+    margin-left: 30px;
+    display: flex;
+    justify-content: space-between;
+    height: 3vh;
+    width: 15vh;
+    padding: 25px;
+    font-size: 20px;
+
+
+}
+/*=======FIN SECTION BOUTONS ===========*/
+
+section.Graphiques {
+    margin-left: 30px;
+    background-color: chartreuse;
+    height: 400px; /* paramètre qui va varier */
+
+}
+
+/* ========= SECTION BAS-DE-PAGE==========*/
+
+section.Bas-de-page{
+    background-color: aqua;
+    height: 200px; /* paramètre qui varie */
+    margin-left: 30px;
+}
+
+
+/* ========= FIN SECTION BAS-DE-PAGE==========*/
+
+
+
+
+
+
