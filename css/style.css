@@ -21,7 +21,7 @@ body {
 /* ========= SECTION HAUT-DE-PAGE==========*/
 
 section.Haut-de-page {
-    background-color:red;
+    background-color:red; /* à supp ensuite*/
     background : url('');
     height: 200px;
     margin-left: 30px;
@@ -30,7 +30,7 @@ section.Haut-de-page {
 nav.nav {
     display: flex;
     justify-content: space-between;
-    background-color: blueviolet;
+    background-color: blueviolet; /*à supp ensuite*/
     list-style: none;
     
     width: 25vh;
@@ -52,14 +52,18 @@ nav.nav li {
     
 
 }
+header.header-top img {
+    width: 300px;
+}
 /*=======FIN SECTION HAUT-DE-PAGE===========*/
 
 
-/* ========= SECTION BOUTONS==========*/
+/* ========= SECTION BOUTONS==========*/ 
+/*Peut être supprimée pour vos besoins spécifiques*/
 
 section.Boutons-à-cocher {
-    background-color: blue;
-    margin-top: 40px;
+    background-color: blue; /*à supp ensuite*/
+    margin-top: 110px;
     margin-left: 30px;
     display: flex;
     justify-content: space-between;
@@ -70,16 +74,25 @@ section.Boutons-à-cocher {
 
 
 }
+/*=======FIN SECTION BOUTONS ===========*/
 
 section.Graphiques {
     margin-left: 30px;
+    background-color: chartreuse;
+    height: 400px; /* paramètre qui va varier */
 
 }
 
+/* ========= SECTION BAS-DE-PAGE==========*/
+
+section.Bas-de-page{
+    background-color: aqua;
+    height: 200px; /* paramètre qui varie */
+    margin-left: 30px;
+}
 
 
-
-
+/* ========= FIN SECTION BAS-DE-PAGE==========*/
 
 
 
