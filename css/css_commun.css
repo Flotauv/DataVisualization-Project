@@ -4,17 +4,19 @@
 @import url(https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap);
 
 
-/* Caractère * fait référence à tous les caractères de la page */
 
-
+/* import de police d'écriture */
 @font-face {
         font-family:'Montaga';
         src: url(../fonts/Montaga-Regular.ttf);
     }
+/* '*' fait référence à tous les éléments de la page */
 
 * {
     font-family: 'Montserrat', sans-serif;
 }
+/* body fait référence à toute la page */
+
 body {
     margin : 0 auto;
 }
@@ -42,18 +44,24 @@ nav.nav li {
     color: black;
     justify-content: space-between;
 }
+/* Titre principal de la section */
 
 .Titre-page {
     color: black;
-    background-color: brown;
-    font-size: 60px;
-    font-family: 'Montaga';
+    font-size: 45px;
+    /*font-family: 'Montaga';*/
+
+    
+    
     
     
 
 }
+/* Image de la police comprise dans le header appelé header-top */
+
 header.header-top img {
     width: 150px;
+
 }
 /*=======FIN SECTION HAUT-DE-PAGE===========*/
 
@@ -62,13 +70,13 @@ header.header-top img {
 /*Peut être supprimée pour vos besoins spécifiques*/
 
 section.Boutons-à-cocher {
-    background-color: blue; /*à supp ensuite*/
+    /*background-color: blue;*/
     margin-top: 110px;
     margin-left: 30px;
     display: flex;
     justify-content: space-between;
     height: 3vh;
-    width: 15vh;
+    width: 20vh;
     padding: 25px;
     font-size: 20px;
 
