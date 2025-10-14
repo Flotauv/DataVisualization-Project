@@ -17,7 +17,7 @@ const svg_page1 = d3.select('#graph-page1')
     .style("background", "#f9f9f9")
     
     
-d3.json("dataset/region-auvergne-rhone-alpes.geojson").then(function(data) {
+d3.json("dataset/departements-auvergne-rhone-alpes.geojson").then(function(data) {
     console.log("Données GeoJSON chargé",data)
 });
     // Création de la carte en pixel
