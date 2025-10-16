@@ -29,11 +29,11 @@ section.Graphique-page1{
     border: 1px solid #ddd;
     border-radius: 8px;
     margin-bottom: 30px;
-    background-color: blue;
 
 }
 
 #graph-page1 svg {
+    
     border: 1px solid #ccc;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
