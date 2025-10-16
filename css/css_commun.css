@@ -11,7 +11,7 @@
         src: url(../fonts/Montaga-Regular.ttf);
     }
 /* '*' fait référence à tous les éléments de la page */
-
+/*=========== REFS COMMUNES À toutes les pages =================== */
 * {
     font-family: 'Montserrat', sans-serif;
 }
@@ -20,6 +20,18 @@
 body {
     margin : 0 auto;
 }
+
+/* ==================================== PREMIERE PAGE ================================*/
+/* ========= SECTION Graphique page 1 (La carte de la région)==========*/
+
+section.Graphique-page1{
+    height: 1000px;
+}
+
+
+
+/* ==================================== DEUXIEME PAGE ================================*/
+
 /* ========= SECTION HAUT-DE-PAGE==========*/
 
 section.Haut-de-page {
@@ -95,11 +107,7 @@ section.Bas-de-page2{
 
 
 
-/* ========= SECTION Graphique page 1 (La carte de la région)==========*/
 
-section.Graphique-page1{
-    height: 1000px;
-}
 
 /* ========== SECTION Graphique page 2 =========== */
 section.Graphique-page2 {

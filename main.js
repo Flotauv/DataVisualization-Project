@@ -13,35 +13,41 @@ const height_page1 = 500;
 const svg_page1 = d3.select('#graph-page1')
     .append("svg")
     .attr("widtg",width_page1)
-    .attr('height',height_page1)
-    .style("background", "#f9f9f9")
+    .attr('height',height_page1);
     
+
+
+
+
+// Échelle couleur
+const colorScale = d3.scaleSequential()
+    .domain([7000, 0]) // plus c’est haut, plus c’est rouge
+    .interpolator(d3.interpolateRdYlGn)
+    .unknown("#ccc");
     
 d3.json("dataset/departements-auvergne-rhone-alpes.geojson").then(function(data) {
-    console.log("Données GeoJSON chargé",data)
-});
+
+    console.log("Données GeoJSON chargé",data);
+
     // Création de la carte en pixel
-    const projection = d3.geoMercator()
-        .fitSize([width_page1,height_page1],data);
+    const projection = d3.geoMercator().fitSize([width_page1,height_page1],data);
 
     // Création des chemins pour dessiner la carte
     const path = d3.geoPath().projection(projection);
-    
-    // Échelle couleur
-    const colorScale = d3.scaleSequential()
-        .domain([7000, 0]) // plus c’est haut, plus c’est rouge
-        .interpolator(d3.interpolateRdYlGn)
-        .unknown("#ccc");
-    
+
     // Dessiner les départements
-    svg_page1.selectAll("path")
-        .data(data.features)
-        .enter()
+    const paths = svg_page1.selectAll("path")
+        .data(data.features);
+
+    paths.enter()
         .append("path")
+        .merge(paths)
         .attr("d", path)
-        .attr("fill", "#cce5df")
-        .attr("stroke", "#333")
-        .attr("stroke-width", 0.5);
+        .attr("stroke", "#fff")
+        .attr("stroke-width", 1);
+});
+
+
 
 
 // ================= PAGE 2 =================== //
