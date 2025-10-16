@@ -5,37 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Page accueil</title>
     <link rel="stylesheet" href="css/css_commun.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 </head>
 <body>
+
     <section class="Haut-de-page">
         <header class="header-top">
             <nav class="nav">
                 <img src="img/police_nationale.png" alt="logo du site">
-                <li> <b>Accueil </b> </li>
+                <li> 
+                    <b>Accueil </b>
+                    <a href="page1.html"></a> 
+                </li>
                 <li> <b>Onglet 2</b> </li>
                 <li><b> Sources</b> </li>
             </nav>
 
             <div style="text-align:center">
-                <h1 class="Titre-page"> Crimes et délits en  </h1> 
+                <h1 class="Titre-page"> Crimes et délits en Auvergne Rhone Alpes  </h1> 
             </div>
             
         </header>
 
     </section>
-<!-- ================ CODE LEO A METTRE DANS CETTE SECTION =============== -->
-    <section class="Zone carte">
-        <!-- Code exécutable -->
 
-        <!-- D3.js -->
-        <script src="https://d3js.org/d3.v7.min.js"></script>
-        <!-- PapaParse pour lire le CSV -->
-        <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-        <script src = "main.js"> </script>
-
-
-
-    </section>
+    <section class="Graphique-page1">
+        <div id="graph-page1"></div>
+            <svg></svg>
+        <div id="tooltip"></div>
+        
     
+    </section>
+
+    
+    <script src="main.js"></script>
 </body>
 </html>

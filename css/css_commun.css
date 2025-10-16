@@ -11,7 +11,7 @@
         src: url(../fonts/Montaga-Regular.ttf);
     }
 /* '*' fait référence à tous les éléments de la page */
-
+/*=========== REFS COMMUNES À toutes les pages =================== */
 * {
     font-family: 'Montserrat', sans-serif;
 }
@@ -20,6 +20,43 @@
 body {
     margin : 0 auto;
 }
+
+/* ==================================== PREMIERE PAGE ================================*/
+/* ========= SECTION Graphique page 1 (La carte de la région)==========*/
+
+section.Graphique-page1{
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 30px;
+
+}
+
+
+#graph-page1 svg {
+    
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    
+}
+
+#tooltip {
+    position: absolute;
+    opacity: 0;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 8px 12px;
+    border-radius: 4px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+    pointer-events: none;
+    font-size: 14px;
+    color: #333;
+    }
+
+
+
+
+/* ==================================== DEUXIEME PAGE ================================*/
+
 /* ========= SECTION HAUT-DE-PAGE==========*/
 
 section.Haut-de-page {
@@ -84,26 +121,29 @@ section.Boutons-à-cocher {
 }
 /*=======FIN SECTION BOUTONS ===========*/
 
-section.Graphiques {
-    margin-left: 30px;
-    background-color: chartreuse;
-    height: 400px; /* paramètre qui va varier */
-
-}
 
 /* ========= SECTION BAS-DE-PAGE==========*/
 
-section.Bas-de-page{
+section.Bas-de-page2{
     background-color: aqua;
     height: 200px; /* paramètre qui varie */
     margin-left: 30px;
 }
 
 
-/* ========= FIN SECTION BAS-DE-PAGE==========*/
 
 
 
+/* ========== SECTION Graphique page 2 =========== */
+section.Graphique-page2 {
+    display: flex; /* on les mets en ligne */
+    justify-content: space-around; /* on met de l'espace entre les deux */
+    margin-left: 30px;
+    background-color: chartreuse;
+    height: 400px; /* paramètre qui va varier */
+}
 
-
-
+section.Graphique-page2 div {
+    flex: 1;
+    text-align: center;
+}

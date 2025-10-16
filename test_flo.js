@@ -1,9 +1,13 @@
+// set the dimensions and margins of the graph
+//const margin = {top: 10, right: 30, bottom: 40, left: 70},
+    //width = 800 - margin.left - margin.right,
+    //height = 600 - margin.top - margin.bottom;
 
 
 // ================= PAGE 1 =================== //
 // ====== Initialisation des constantes ==== //
 
-const width_page1 = 1050;
+const width_page1 = 950;
 const height_page1 = 700;
 
 const svg_page1 = d3.select('svg')
@@ -12,8 +16,8 @@ const svg_page1 = d3.select('svg')
 
 // Projection centrée Rhône-Alpes
 const projection = d3.geoMercator()
-  .center([3.2, 45.5]) // centré Rhône-Alpes
-  .scale(7000)          // zoom
+  .center([4.5, 45.75]) // centré Rhône-Alpes
+  .scale(8000)          // zoom
   .translate([width_page1 / 2, height_page1 / 2]);
 
 const path = d3.geoPath().projection(projection);
@@ -76,6 +80,7 @@ const svg_page2_graph2 = d3.select("#graph-page2-graph2")
     .attr("height", height_page2 + margin_page2.top + margin_page2.bottom)
     .append("g")
     .attr("transform", `translate(${margin_page2.left},${margin_page2.top})`);
+
 
 
 
