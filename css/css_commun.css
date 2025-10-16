@@ -25,8 +25,31 @@ body {
 /* ========= SECTION Graphique page 1 (La carte de la région)==========*/
 
 section.Graphique-page1{
-    height: 1000px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    background-color: blue;
+
 }
+
+#graph-page1 svg {
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+#tooltip {
+    position: absolute;
+    opacity: 0;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 8px 12px;
+    border-radius: 4px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+    pointer-events: none;
+    font-size: 14px;
+    color: #333;
+    }
+
 
 
 

@@ -5,7 +5,7 @@
 
 
 // ================= PAGE 1 =================== //
-// Dimensions communes à la page 1
+// ====== Initialisation des constantes ==== //
 
 const width_page1 = 600;
 const height_page1 = 500;
@@ -14,38 +14,46 @@ const svg_page1 = d3.select('#graph-page1')
     .append("svg")
     .attr("widtg",width_page1)
     .attr('height',height_page1);
-    
+
+// Couleurs de remplissage (0 → max)
+const colorScale = d3.scaleSequential(d3.interpolateReds).domain([0, 5000]); 
+
+// ====== Initialisation des variables ==== //
+
+let geojsonData;
+let csvData;
 
 
+// lecture du fichier des départements de la région Auvergne Rhone Alpes
+d3.csv("db_Auvergne_Rhone_Alpes.csv", d => ({
+    annee : d.annee,
+    Code_departement : +d.Code_departement,
+    indicateur : d.indicateur,
+    nombre : d.nombre
+})).then(data => {
+    csvData = data;
+    console.log("CSV chargé :",data);
+    chargeGeoJSON();
+})
 
-
-// Échelle couleur
-const colorScale = d3.scaleSequential()
-    .domain([7000, 0]) // plus c’est haut, plus c’est rouge
-    .interpolator(d3.interpolateRdYlGn)
-    .unknown("#ccc");
-    
-d3.json("dataset/departements-auvergne-rhone-alpes.geojson").then(function(data) {
-
-    console.log("Données GeoJSON chargé",data);
-
-    // Création de la carte en pixel
-    const projection = d3.geoMercator().fitSize([width_page1,height_page1],data);
-
-    // Création des chemins pour dessiner la carte
+function chargeGeoJSON() {
+    d3.json("dataset/departements-auvergne-rhone-alpes.geojson").then(data => {
+        geojsonData = data;
+        console.log("Données GeoJSON chargé",data);
+    // Projection automatique
+    const projection = d3.geoMercator().fitSize([width_page1, height_page1], geojsonData);
     const path = d3.geoPath().projection(projection);
 
-    // Dessiner les départements
-    const paths = svg_page1.selectAll("path")
-        .data(data.features);
+    svg_page1.selectAll("path")
+    .data(geojsonData.features)
+    .enter()
+    .append("path")
+    .attr("d", path)
+    .attr("fill", "#d9e8f5")
+    .attr("stroke", "#333")
+    .attr("stroke-width", 0.6);
 
-    paths.enter()
-        .append("path")
-        .merge(paths)
-        .attr("d", path)
-        .attr("stroke", "#fff")
-        .attr("stroke-width", 1);
-});
+})};
 
 
 
@@ -71,16 +79,7 @@ const svg_page2_graph2 = d3.select("#graph-page2-graph2")
     .attr("height", height_page2 + margin_page2.top + margin_page2.bottom)
     .append("g")
     .attr("transform", `translate(${margin_page2.left},${margin_page2.top})`);
-// lecture du fichier des départements de la région Auvergne Rhone Alpes
-d3.csv("db_Auvergne_Rhone_Alpes.csv").then(function(donnees) {
-    donnees.forEach(function(d){
-        d.annee = +Number(d.annee);
-        d.Code_departement = +Number(d.Code_departement);
-        d.nombre = +Number(d.nombre)
 
-        
-    });
-    console.log(donnees)});
 
 
 
