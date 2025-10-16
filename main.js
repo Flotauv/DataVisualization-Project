@@ -3,8 +3,8 @@
 // ================= PAGE 1 =================== //
 // ====== Initialisation des constantes ==== //
 
-const width_page1 = 960;
-const height_page1 = 600;
+const width_page1 = 1050;
+const height_page1 = 700;
 
 const svg_page1 = d3.select('svg')
     .attr('width',width_page1)
@@ -12,8 +12,8 @@ const svg_page1 = d3.select('svg')
 
 // Projection centrée Rhône-Alpes
 const projection = d3.geoMercator()
-  .center([4.5, 45.75]) // centré Rhône-Alpes
-  .scale(8000)          // zoom
+  .center([3.2, 45.5]) // centré Rhône-Alpes
+  .scale(7000)          // zoom
   .translate([width_page1 / 2, height_page1 / 2]);
 
 const path = d3.geoPath().projection(projection);
