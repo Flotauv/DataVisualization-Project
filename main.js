@@ -20,14 +20,17 @@ const projection = d3.geoMercator()
 const path = d3.geoPath().projection(projection);
 
 // Tooltip pour le style de la carte 
-const tooltip = d3.select("tooltip");
+const tooltip = d3.select("#tooltip");
 
 // Slider DOM
 const yearSlider = d3.select("#year_slider");
 const yearLabel = d3.select("#year_label");
 
-// Couleurs de remplissage (0 → max)
-const colorScale = d3.scaleSequential(d3.interpolateReds).domain([0, 5000]); 
+// Échelle couleur
+const colorScale = d3.scaleSequential()
+  .domain([7000, 0]) // adapter à ton dataset
+  .interpolator(d3.interpolateRdYlGn)
+  .unknown("#ccc");
 
 // load csv 
 Papa.parse("db_Auvergne_Rhone_Alpes.csv", {
