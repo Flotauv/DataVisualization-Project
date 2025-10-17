@@ -16,11 +16,15 @@ const projection = d3.geoMercator()
   .scale(7000)          // zoom
   .translate([width_page1 / 2, height_page1 / 2]);
 
+// Projection des contours des départements
 const path = d3.geoPath().projection(projection);
 
-  // Slider DOM
-const yearSlider = d3.select("#yearSlider");
-const yearLabel = d3.select("#yearLabel");
+// Tooltip pour le style de la carte 
+const tooltip = d3.select("tooltip");
+
+// Slider DOM
+const yearSlider = d3.select("#year_slider");
+const yearLabel = d3.select("#year_label");
 
 // Couleurs de remplissage (0 → max)
 const colorScale = d3.scaleSequential(d3.interpolateReds).domain([0, 5000]); 
@@ -30,27 +34,100 @@ Papa.parse("db_Auvergne_Rhone_Alpes.csv", {
     download : true,
     delimiter :",",
     complete : function(results) {
-        console.log("CSV chargé v2 :",results.data)
+        console.log("CSV chargé  :",results.data)
         const data = results.data;
 
+        // Extraire les années uniques triées
+        const years = [... new Set(data.map(d => d.annee))].sort();
+        console.log("Années dispo :",years)
+
+        // Slider des années
+        yearSlider
+            .attr("min",0)
+            .attr("max",years.length-1)
+            .attr("value",0);
+
+        // Valeur par défaut du slider 
+        yearLabel.text(years[0]);
+        console.log("Année par défaut :",yearLabel.text(years[0]))
+
         d3.json("dataset/departements-auvergne-rhone-alpes.geojson").then(geojson => {
-            const paths = svg_page1.selectAll("path")
-                .data(geojson.features);
+            console.log("GeoJSON Chargé",geojson)
 
-            paths.enter()
-                .append("path")
-                .merge(paths)
-                .attr("d", path)
-                .attr("stroke", "#fff")
-                .attr("stroke-width", 1)
+            // Création de la fonction de mise à jour de la carte suivant l'année
 
-        })
+            function UpdateMap(selectedYear){
+                console.log("Année selectionnée :", selectedYear);
+
+                // variable très importante car c'est le dataset filtrer selon l'année choisi par l'utilisateur.
+                const filtered = data.filter(d =>
+                    d.annee === selectedYear && 
+                    d.Type === "Délit"
+                );
+                // Récupération des délits mais à changer plus tard 
+                const delit = {};
+                filtered.forEach(d => {
+                    const departement = d.Code_departement?.padStart(2,"0");
+                    const nombre = parseInt(d.nombre) || 0;
+                    delit[departement] = (delit[departement] || 0) + nombre;
+                    
+                });
+            
+
+
+
+
+
+                const paths = svg_page1.selectAll("path")
+                    .data(geojson.features);
+
+                paths.enter()
+                    .append("path")
+                    .merge(paths)
+                    .attr("d", path)
+                    .attr("stroke", "#fff")
+                    .attr("stroke-width", 1);
+                    /*
+                    .on("mousemove",(event,d)=>{
+                        const departement = d.properties.departement; // à changer ici peut être
+                        const nom = d.properties.nom;
+                        const count = (delit[departement] || 0); // à changer ici peut être 
+                        tooltip.style("opacity", 1)
+                            .style("left", (event.pageX + 10) + "px")
+                            .style("top", (event.pageY + 10) + "px")
+                            .html(`<strong>${nom}</strong><br>${count} délits`);
+
+
+                    })
+                    
+                    .on("mouseout", () => tooltip.style("opacity", 0))
+                    .transition()
+                    .duration(500)
+                    .attr("fill", d => colorScale(delit[d.properties.departement] || 0));
+                    */
+
+            }
+            
+            // Initialisation
+            UpdateMap(years[0]);
+
+            /*
+            // Mise à jour avec le slider
+            yearSlider.on("input", (event) => {
+                const index = +event.target.value;
+                const selectedYear = years[index];
+                yearLabel.text(selectedYear);
+                UpdateMap(selectedYear);
+            });
+            */
+
+        });
 
 
 
     
     }
-})
+});
 
 
 

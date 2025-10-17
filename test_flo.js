@@ -7,7 +7,7 @@
 // ================= PAGE 1 =================== //
 // ====== Initialisation des constantes ==== //
 
-const width_page1 = 950;
+const width_page1 = 1050;
 const height_page1 = 700;
 
 const svg_page1 = d3.select('svg')
@@ -16,8 +16,8 @@ const svg_page1 = d3.select('svg')
 
 // Projection centrée Rhône-Alpes
 const projection = d3.geoMercator()
-  .center([4.5, 45.75]) // centré Rhône-Alpes
-  .scale(8000)          // zoom
+  .center([3.0, 45.5]) // centré Rhône-Alpes
+  .scale(7000)          // zoom
   .translate([width_page1 / 2, height_page1 / 2]);
 
 const path = d3.geoPath().projection(projection);
@@ -34,10 +34,14 @@ Papa.parse("db_Auvergne_Rhone_Alpes.csv", {
     download : true,
     delimiter :",",
     complete : function(results) {
-        console.log("CSV chargé v2 :",results.data)
+        console.log("CSV chargé test :",results.data)
         const data = results.data;
 
         d3.json("dataset/departements-auvergne-rhone-alpes.geojson").then(geojson => {
+            console.log("geoJSON chargé",geojson);
+
+
+            
             const paths = svg_page1.selectAll("path")
                 .data(geojson.features);
 
@@ -47,6 +51,7 @@ Papa.parse("db_Auvergne_Rhone_Alpes.csv", {
                 .attr("d", path)
                 .attr("stroke", "#fff")
                 .attr("stroke-width", 1)
+            
 
         })
 
