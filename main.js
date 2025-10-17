@@ -3,8 +3,8 @@
 // ================= PAGE 1 =================== //
 // ====== Initialisation des constantes ==== //
 
-const width_page1 = 1050;
-const height_page1 = 700;
+const width_page1 = 1450;
+const height_page1 = 600;
 
 const svg_page1 = d3.select('svg')
     .attr('width',width_page1)
@@ -12,8 +12,8 @@ const svg_page1 = d3.select('svg')
 
 // Projection centrée Rhône-Alpes
 const projection = d3.geoMercator()
-  .center([3.2, 45.5]) // centré Rhône-Alpes
-  .scale(7000)          // zoom
+  .center([4.5, 45.5]) // centré Rhône-Alpes
+  .scale(8000)          // zoom
   .translate([width_page1 / 2, height_page1 / 2]);
 
 // Projection des contours des départements
@@ -33,11 +33,12 @@ const colorScale = d3.scaleSequential()
   .unknown("#ccc");
 
 // load csv 
-Papa.parse("dataset/db_delinquance_dpt.csv", {
+Papa.parse("db_Auvergne_Rhone_Alpes.csv", {
     download : true,
-    delimiter :";",
+    header : true, // important sinon il charge les éléments [] et non entre {}
+    delimiter :",",
     complete : function(results) {
-        console.log("CSV chargé 5 :",results.data)
+        console.log("CSV chargé  :",results.data)
         const data = results.data;
 
         // Extraire les années uniques triées
@@ -52,7 +53,7 @@ Papa.parse("dataset/db_delinquance_dpt.csv", {
 
         // Valeur par défaut du slider 
         yearLabel.text(years[0]);
-        console.log("Année par défaut :",yearLabel.text(years[0]))
+        
 
         d3.json("dataset/departements-auvergne-rhone-alpes.geojson").then(geojson => {
             console.log("GeoJSON Chargé",geojson)
@@ -68,13 +69,14 @@ Papa.parse("dataset/db_delinquance_dpt.csv", {
                     d.Type === "Délit"
                 );
                 // Récupération des délits mais à changer plus tard 
-                const delit = {};
+                const delits = {};
                 filtered.forEach(d => {
-                    const departement = d.Code_departement?.padStart(2,"0");
+                    const code_dpt = d.Code_departement?.padStart(2,"0");
                     const nombre = parseInt(d.nombre) || 0;
-                    delit[departement] = (delit[departement] || 0) + nombre;
+                    delits[code_dpt] = (delits[code_dpt] || 0) + nombre;
                     
                 });
+                console.log("code_dpt et nb de délits",delits)
             
 
 
@@ -89,12 +91,11 @@ Papa.parse("dataset/db_delinquance_dpt.csv", {
                     .merge(paths)
                     .attr("d", path)
                     .attr("stroke", "#fff")
-                    .attr("stroke-width", 1);
-                    /*
+                    .attr("stroke-width", 1)
                     .on("mousemove",(event,d)=>{
-                        const departement = d.properties.departement; // à changer ici peut être
+                        const code_dpt = d.properties.code; // ici ce sont les données geoJSON qui sont appelées 'd' et elle ont un attribut 'properties' avec le code et le nom du département
                         const nom = d.properties.nom;
-                        const count = (delit[departement] || 0); // à changer ici peut être 
+                        const count = delits[code_dpt] || 0 ; // à changer ici peut être 
                         tooltip.style("opacity", 1)
                             .style("left", (event.pageX + 10) + "px")
                             .style("top", (event.pageY + 10) + "px")
@@ -106,15 +107,15 @@ Papa.parse("dataset/db_delinquance_dpt.csv", {
                     .on("mouseout", () => tooltip.style("opacity", 0))
                     .transition()
                     .duration(500)
-                    .attr("fill", d => colorScale(delit[d.properties.departement] || 0));
-                    */
+                    .attr("fill", d => colorScale(delits[d.properties.code] || 0));
+                    
 
             }
             
             // Initialisation
             UpdateMap(years[0]);
 
-            /*
+            
             // Mise à jour avec le slider
             yearSlider.on("input", (event) => {
                 const index = +event.target.value;
@@ -122,7 +123,7 @@ Papa.parse("dataset/db_delinquance_dpt.csv", {
                 yearLabel.text(selectedYear);
                 UpdateMap(selectedYear);
             });
-            */
+            
 
         });
 
