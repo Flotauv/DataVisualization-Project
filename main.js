@@ -33,7 +33,7 @@ const colorScale = d3.scaleSequential()
   .unknown("#ccc");
 
 // load csv 
-Papa.parse("db_Auvergne_Rhone_Alpes.csv", {
+Papa.parse("dataset/db_CrimesDelits.csv", {
     download : true,
     header : true, // important sinon il charge les éléments [] et non entre {}
     delimiter :",",
