@@ -33,11 +33,11 @@ const colorScale = d3.scaleSequential()
   .unknown("#ccc");
 
 // load csv 
-Papa.parse("db_Auvergne_Rhone_Alpes.csv", {
+Papa.parse("dataset/db_delinquance_dpt.csv", {
     download : true,
-    delimiter :",",
+    delimiter :";",
     complete : function(results) {
-        console.log("CSV chargé  :",results.data)
+        console.log("CSV chargé 5 :",results.data)
         const data = results.data;
 
         // Extraire les années uniques triées
