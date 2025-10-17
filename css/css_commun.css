@@ -58,7 +58,7 @@ section.Graphique-page1{
 
 input[type="range"] {
     width: 80%;
-    -webkit-appearance: none;
+    /*-webkit-appearance: none;   à mettre ou pas pour le slider plus noir */
     height: 8px;
     border-radius: 8px;
     background: #ddd;

@@ -28,7 +28,7 @@ const yearLabel = d3.select("#year_label");
 
 // Échelle couleur
 const colorScale = d3.scaleSequential()
-  .domain([7000, 0]) // adapter à ton dataset
+  .domain([100000, 0]) // il faudra mettre un point de reference 
   .interpolator(d3.interpolateRdYlGn)
   .unknown("#ccc");
 
