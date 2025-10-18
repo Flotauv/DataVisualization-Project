@@ -3,7 +3,7 @@
 // ================= PAGE 1 =================== //
 // ====== Initialisation des constantes ==== //
 
-const width_page1 = 1450;
+const width_page1 = 1250; // largeur de
 const height_page1 = 600;
 
 const svg_page1 = d3.select('svg')
@@ -92,6 +92,15 @@ Papa.parse("dataset/db_CrimesDelits.csv", {
                     .attr("d", path)
                     .attr("stroke", "#fff")
                     .attr("stroke-width", 1)
+                    .on("mouseenter" ,(event,d) => {
+                        d3.select(event.currentTarget)
+                            .transition()
+                            .duration(200)
+                            .attr("stroke-width",2)
+                            .attr("stroke","#333")
+                            .attr("filter","brightness(1.2)");
+                            
+                    })
                     .on("mousemove",(event,d)=>{
                         const code_dpt = d.properties.code; // ici ce sont les données geoJSON qui sont appelées 'd' et elle ont un attribut 'properties' avec le code et le nom du département
                         const nom = d.properties.nom;
@@ -104,11 +113,31 @@ Papa.parse("dataset/db_CrimesDelits.csv", {
 
                     })
                     
-                    .on("mouseout", () => tooltip.style("opacity", 0))
+                    .on("mouseleave", (event,d) =>{
+                        d3.select(event.currentTarget)
+                            .transition()
+                            .duration(200)
+                            .attr("strok-width",1)
+                            .attr("stroke","#fff")
+                            .attr("filter","brightness(1)");
+                        tooltip.style("opacity",0);
+                    })
+                    .on("click",(event,d) => {
+                        const nom = d.properties.nom;
+                        const code_dpt = d.properties.code;
+                        // Sauvegarder les informations quand on click sur le département
+                        sessionStorage.setItem("CodeDpt",code_dpt);
+                        sessionStorage.setItem("Année",selectedYear);
+
+                        // Changer de fenêtre
+                        window.location.href = "page2.html";
+
+                    })
                     .transition()
                     .duration(500)
                     .attr("fill", d => colorScale(delits[d.properties.code] || 0));
-                    
+                
+                      
 
             }
             
@@ -137,10 +166,23 @@ Papa.parse("dataset/db_CrimesDelits.csv", {
 
 
 // ================= PAGE 2 =================== //
-// Dimensions communes à la page 2
+// Dimensions communes aux balises svg des graphes de la page 2
 const width_page2 = 300;
 const height_page2 = 300;
 const margin_page2 = { top: 20, right: 20, bottom: 30, left: 40 };
+
+// récupération dynamiques des variables de la page 1
+
+const CodeDpt = sessionStorage.getItem("CodeDpt");
+const Annee = sessionStorage.getItem("Année");
+if (!CodeDpt){
+    console.error("Pas de département récupérer");
+}
+if (!Annee){
+    console.error("Pas d'année sélectionnée pour la page 2");
+}
+
+
 
 // Adding SVG (Scalable Vector Graphics) Met à l'échelle un graphique si la personne zoom ou dézoom sur la page
 // Ajout d'un espace pour graphique dans les div de la section Graphique-page2
