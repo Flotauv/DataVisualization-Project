@@ -26,23 +26,30 @@ body {
 
 section.Graphique-page1{
     background: #fff;
-    border: 1px solid #ddd;
+    border: 3px solid #0f0e0e; /* Pour voir les bordures des balises (à enlever ensuite )*/
     border-radius: 8px;
     margin-bottom: 30px;
+    /*background-color: blue;*/
+    margin-left: 30px;
+    height: 650px;
+    display: flex;
+
     
 
 }
 
 
 #graph-page1 svg {
-    border: 1px solid #ccc;
+    border: 1px solid #ccc; /* Pour voir les bordures des balises (à enlever ensuite )*/
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     
 }
 
 #controls {
     margin: 15px auto;
+    border: 1px solid #ccc;
     width: 60%;
+    height: 600px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -107,6 +114,7 @@ section.Haut-de-page {
     background : url('');
     height: 200px;
     margin-left: 30px;
+    
 }
 /* La barre de recherche en tant qu'objet */
 nav.nav {
