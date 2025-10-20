@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page accueil</title>
+    <title id="Carte">Carte</title>
     <link rel="stylesheet" href="css/css_commun.css">
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
@@ -15,10 +15,11 @@
             <nav class="nav">
                 <img src="img/police_nationale.png" alt="logo du site">
                 <li> 
-                    <b>Accueil</b>
-                    <a href="page1.html"></a> 
+                    <a href="Contexte.html">Contexte</a> 
                 </li>
-                <li> <b>Contexte</b> </li>
+                <li> 
+                    <a href="Carte.html">Carte</a>
+                </li>
                 <li><b> Sources</b> </li>
             </nav>
 
@@ -39,9 +40,7 @@
         <div id="controls">
             <div id="yearValue">Année : <span id="year_label">–</span></div>
             <input type="range" id="year_slider" min="0" max="10" value="0" step="1">
-            <div>
-                <h2>Mettre échelle couleur ? + données comme taux</h2>
-            </div>
+            
         </div>
 
         
@@ -51,6 +50,6 @@
     </section>
 
     
-    <script src="main.js"></script>
+    <script src="test.js"></script>
 </body>
 </html>

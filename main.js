@@ -1,6 +1,6 @@
 
 
-// ================= PAGE 1 =================== //
+// ================= CARTE =================== //
 // ====== Initialisation des constantes ==== //
 
 const width_page1 = 1250; // largeur de
@@ -76,13 +76,8 @@ Papa.parse("dataset/db_CrimesDelits.csv", {
                     delits[code_dpt] = (delits[code_dpt] || 0) + nombre;
                     
                 });
-                console.log("code_dpt et nb de délits",delits)
-            
-
-
-
-
-
+                
+                
                 const paths = svg_page1.selectAll("path")
                     .data(geojson.features);
 
@@ -125,12 +120,13 @@ Papa.parse("dataset/db_CrimesDelits.csv", {
                     .on("click",(event,d) => {
                         const nom = d.properties.nom;
                         const code_dpt = d.properties.code;
+                        const indicateur = d.indicateur;
                         // Sauvegarder les informations quand on click sur le département
                         sessionStorage.setItem("CodeDpt",code_dpt);
                         sessionStorage.setItem("Année",selectedYear);
 
                         // Changer de fenêtre
-                        window.location.href = "page2.html";
+                        window.location.href = "Carte2.html";
 
                     })
                     .transition()
@@ -140,6 +136,9 @@ Papa.parse("dataset/db_CrimesDelits.csv", {
                       
 
             }
+            
+
+    
             
             // Initialisation
             UpdateMap(years[0]);
@@ -175,12 +174,18 @@ const margin_page2 = { top: 20, right: 20, bottom: 30, left: 40 };
 
 const CodeDpt = sessionStorage.getItem("CodeDpt");
 const Annee = sessionStorage.getItem("Année");
+
 if (!CodeDpt){
     console.error("Pas de département récupérer");
+} else {
+    console.log("Année récuperée",Annee)
 }
 if (!Annee){
     console.error("Pas d'année sélectionnée pour la page 2");
+}else {
+    console.log("Département récupéré",CodeDpt)
 }
+
 
 
 

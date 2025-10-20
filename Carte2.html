@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=, initial-scale=1.0">
-    <title>Structure des pages du site</title>
+    <title id="Carte2">Carte2</title>
     <link rel="stylesheet" href="css/css_commun.css">
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
@@ -16,9 +16,10 @@
             <nav class="nav">
                 <img src="img/police_nationale.png" alt="logo du site">
                 <li> 
-                    <a href="page1.html">Accueil</a>
+                    <a href="Contexte.html">Contexte</a>
                  </li>
-                <li> <b>Contexte</b> </li>
+                <li> <a href="Carte.html">Carte</a>
+                </li>
                 <li><b> Sources</b> </li>
             </nav>
 
@@ -46,6 +47,12 @@
         
 
     </section>
+   <section id="Controls-page2">
+    <div id="Controls-page2">
+        <div id="yearValue">Année : <span id="year_label">–</span></div>
+        <input type="range" id="year_slider" min="0" max="10" value="0" step="1">
+    </div>
+   </section>
 <!-- =========== SECTION GRAPHIQUE QUI PEUT BOUGER -->
     <section class="Graphique-page2">
         <header class="header">
@@ -54,14 +61,6 @@
         <div id="graph-page2-graph1"></div>
         <div id="graph-page2-graph2"></div>
     </section>
-
-    <section class="Bas-de-page2">
-        <header class="header">
-            <h2 class='Bas-de-page'>Contexte</h2>
-        </header>
-        
-
-    </section>
-    <script src="main.js"></script>
+    <script src="test.js"></script>
 </body>
 </html>

@@ -10,7 +10,7 @@
         font-family:'Montaga';
         src: url(../fonts/Montaga-Regular.ttf);
     }
-/* '*' fait référence à tous les éléments de la page */
+
 /*=========== REFS COMMUNES À toutes les pages =================== */
 * {
     font-family: 'Montserrat', sans-serif;
@@ -20,8 +20,43 @@
 body {
     margin : 0 auto;
 }
+/* ========= SECTION HAUT-DE-PAGE==========*/
 
-/* ==================================== PREMIERE PAGE ================================*/
+section.Haut-de-page {
+    background-color:red; /* à supp ensuite*/
+    background : url('');
+    height: 200px;
+    margin-left: 30px;
+    
+}
+nav.nav {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    align-items: center;
+    width: 50vh;
+    padding: 25px; /* marge interne */
+
+}
+
+nav.nav li {
+    color: black;
+    justify-content: space-between;
+}
+
+/* Titre principal de la section */
+.Titre-page {
+    color: black;
+    font-size: 45px;
+    /*font-family: 'Montaga';*/ 
+}
+/* Image de la police comprise dans le header appelé header-top */
+header.header-top img {
+    width: 150px;
+
+}
+
+/* ==================================== CARTE ================================*/
 /* ========= SECTION Graphique page 1 (La carte de la région)==========*/
 
 section.Graphique-page1{
@@ -107,51 +142,6 @@ input[type="range"]::-webkit-slider-thumb:hover {
 
 /* ==================================== DEUXIEME PAGE ================================*/
 
-/* ========= SECTION HAUT-DE-PAGE==========*/
-
-section.Haut-de-page {
-    background-color:red; /* à supp ensuite*/
-    background : url('');
-    height: 200px;
-    margin-left: 30px;
-    
-}
-/* La barre de recherche en tant qu'objet */
-nav.nav {
-    display: flex;
-    justify-content: space-between;
-    list-style: none;
-    align-items: center;
-    width: 50vh;
-    padding: 25px; /* marge interne */
-
-}
-
-/* Chaque onglet de la barre de recherche */
-nav.nav li {
-    color: black;
-    justify-content: space-between;
-}
-/* Titre principal de la section */
-
-.Titre-page {
-    color: black;
-    font-size: 45px;
-    /*font-family: 'Montaga';*/
-
-    
-    
-    
-    
-
-}
-/* Image de la police comprise dans le header appelé header-top */
-
-header.header-top img {
-    width: 150px;
-
-}
-/*=======FIN SECTION HAUT-DE-PAGE===========*/
 
 
 /* ========= SECTION BOUTONS==========*/ 
@@ -170,16 +160,9 @@ section.Boutons-à-cocher {
 
 
 }
-/*=======FIN SECTION BOUTONS ===========*/
+/* ========= SECTION BOUTONS==========*/ 
 
 
-/* ========= SECTION BAS-DE-PAGE==========*/
-
-section.Bas-de-page2{
-    background-color: aqua;
-    height: 200px; /* paramètre qui varie */
-    margin-left: 30px;
-}
 
 
 
@@ -187,14 +170,44 @@ section.Bas-de-page2{
 
 /* ========== SECTION Graphique page 2 =========== */
 section.Graphique-page2 {
+    border: 4px solid #ccc;
     display: flex; /* on les mets en ligne */
     justify-content: space-around; /* on met de l'espace entre les deux */
     margin-left: 30px;
-    background-color: chartreuse;
-    height: 400px; /* paramètre qui va varier */
+    
+    
+    height: 800px; /* paramètre qui va varier */
 }
 
 section.Graphique-page2 div {
     flex: 1;
     text-align: center;
+    border: 1px solid #ccc;
+    
+}
+#graph-page2-graph1 {
+    border: 4px solid #29a219;
+    width: 150vh;
+    align-items: center;
+    
+}
+
+#Controls-page2  {
+    border: 2px solid #1b39e4;
+    width: 300 vh;
+    
+
+
+}
+section.Graphique-page2 svg {
+    border: 2px solid #e08686;
+    height: 700px;
+    width:100vh;
+
+}
+
+#Controls-page2 div {
+    width: 140vh;
+    align-items: center;
+
 }
