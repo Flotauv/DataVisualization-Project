@@ -245,15 +245,15 @@ if (isCarte2){
                 };
                 
                 function createBarChart(data){
-                    const margin = { top: 20, right: 20, bottom: 30, left: 60 };
-                    const width = 800 - margin.left - margin.right;
-                    const height = 600 - margin.top - margin.bottom;
+                    const margin = { top: 10, right: 5, bottom: 20, left: 100 };
+                    const width = 1000 ;
+                    const height = 610 
 
                         
 
                     const svg = d3.select("#graph-page2-graph1").append("svg")
-                        .attr("width", width + margin.left + margin.right)
-                        .attr("height", height + margin.top + margin.bottom)
+                        .attr("width", width )
+                        .attr("height", height)
                         .append("g")
                         .attr("transform", `translate(0,${margin.left},${margin.top})`);
                     const xScale = d3.scaleBand()
@@ -280,7 +280,7 @@ if (isCarte2){
                         .call(d3.axisBottom(xScale))
                         .selectAll("text")
                         .attr("transform","rotate(-25)")
-                        .style("font-size", "10px")
+                        .style("font-size", "9px")
                         .attr("dx", "-0.5em")  // Décalage horizontal
                         .attr("dy", "0.2em");  // Décalage vertical
                     // Axe Y

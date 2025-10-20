@@ -170,10 +170,10 @@ section.Boutons-à-cocher {
 
 /* ========== SECTION Graphique page 2 =========== */
 section.Graphique-page2 {
-    border: 4px solid #ccc;
+    border: 2px solid #ccc;
     display: flex; /* on les mets en ligne */
     justify-content: space-around; /* on met de l'espace entre les deux */
-    margin-left: 30px;
+    margin-left: 50px;
     
     
     height: 800px; /* paramètre qui va varier */
@@ -183,10 +183,10 @@ section.Graphique-page2 div {
     flex: 1;
     text-align: center;
     border: 1px solid #ccc;
+    align-items: center;
     
 }
 #graph-page2-graph1 {
-    border: 4px solid #29a219;
     width: 150vh;
     align-items: center;
     
@@ -200,9 +200,10 @@ section.Graphique-page2 div {
 
 }
 section.Graphique-page2 svg {
-    border: 2px solid #e08686;
     height: 700px;
-    width:100vh;
+    width:150vh;
+    margin-left: 20px;
+    
 
 }
 
