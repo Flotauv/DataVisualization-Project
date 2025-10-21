@@ -406,15 +406,12 @@ if (isContexte) {
                             .domain(data.map(function (d) {return d.type}))
 
                         const xAxis = d3.axisBottom(x)
+                            .ticks(5)
+                            .tickSize(0);
+
                         const yAxis = d3.axisLeft(y)
-
-                        svg2.append("g")
-                        .attr("class","x axis")
-                        .attr("transform","translate(0,"+height+")")
-                        .call(xAxis);
-
-                        svg2.append("g")
-                            .call(yAxis);
+                            .tickSize(0)
+                            .tickPadding(20);
 
                         svg2.selectAll(".bar")
                             .data(data)
@@ -423,7 +420,31 @@ if (isContexte) {
                             .attr("height",y.bandwidth())
                             .attr("x",0)
                             .attr("width",function (d) {return x(d.count)})
-                            .style("fill",'skyblue');
+                            .style("fill",'skyblue'); //changement de couleur ici 
+
+                        svg2.append("g")
+                            .attr("class","x axis")
+                            .attr("transform","translate(0,"+height+")")
+                            .call(xAxis);
+
+                        svg2.append("g")
+                            .call(yAxis);
+                        
+                        // Add labels to the end of each bar
+                        svg2.selectAll(".label")
+                            .data(data)
+                            .enter().append("text")
+                            .attr("x", function (d) { return x(d.count) + 5; })
+                            .attr("y", function (d) { return y(d.type) + y.bandwidth() / 2; })
+                            .attr("dy", ".35em")
+                            .style("font-family", "sans-serif")
+                            .style("font-size", "10px")
+                            .style("font-weight", "bold")
+                            .style('fill', '#3c3d28')
+                            .text(function (d) { return d.count; });
+
+
+                        
 
 
                         
