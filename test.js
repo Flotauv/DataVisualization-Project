@@ -245,24 +245,75 @@ if (isCarte2){
                 };
                 
                 function createBarChart(data){
-                    const margin = { top: 10, right: 5, bottom: 20, left: 100 };
-                    const width = 1000 ;
-                    const height = 610 
+                    const margin = { top: 70, right: 30, bottom: 60, left: 130 };
+                    const width = 800 + margin.left + margin.right ;
+                    const height = 300 + margin.top + margin.bottom;
+
+                    data.sort((a,b) =>  a.count -  b.count);
 
                         
-
-                    const svg = d3.select("#graph-page2-graph1").append("svg")
+                    // Création de l'espace qui va contenir le graphique 
+                    const svg1 = d3.select("#graph-page2-graph1").append("svg")
                         .attr("width", width )
                         .attr("height", height)
                         .append("g")
                         .attr("transform", `translate(0,${margin.left},${margin.top})`);
+
+                    
+
+                    // Création de l'axe des X qui sera des barres => valeurs qualitatives 
+
                     const xScale = d3.scaleBand()
                         .domain(data.map(d => d.type))
                         .range([0, width])
-                        .padding(0.1);
+                        .padding(0.4);
+                    // =============== TEST ================== //
+                    const svg2 = d3.select("#test").append("svg")
+                        .attr("width", width )
+                        .attr("height", height)
+                        .append("g")
+                        .attr("transform", `translate(0,${margin.left},${margin.top})`);
+
+                    const xScale2 = d3.scaleLinear()
+                        .domain([0,width])
+                        .range([0,d3.max(d,function(d) {return d.count })]);
+
+                    const yScale2 = d3.scaleBand()
+                        .range([height,0])
+                        .padding(0.1)
+                        .domain(data.map(function(d) {return d.type}));
+
+                    const xAxis = d3.axisBottom(xScale2);
+
+                    const yAxis = d3.axisLeft(yScale2);
+
+                    svg2.append("g")
+                        .attr("class","x axis")
+                        .attr("transform","translate(0,"+height+")")
+                        .call(xAxis);
+
+                    svg2.append("g")
+                        .call(yAxis);
+
+                    svg2.selectAll(".bar")
+                        .data(data)
+                        .enter().append("rect")
+                        .attr("y",function(d){return yScale2(d.type)})
+                        .attr("height",yScale2.bandwidth())
+                        .attr("x",0)
+                        .attr("width",function (d) {return xScale2(d.count)})
+                        .style("fill",'skyblue');
+                    
+                    
+
+
+                    // =============== FIN TEST ================== //
+
+                    // Création de l'axe des Y qui sera une 'échelle linéaire' => valeurs quantitatives
                     const yScale = d3.scaleLinear()
                         .domain([0, d3.max(data, d => d.count)])
                         .range([height, 0]);
+
                     // Barres
                     svg.selectAll(".bar")
                         .data(data)
@@ -275,17 +326,33 @@ if (isCarte2){
                         .attr("height", d => height - yScale(d.count))
                         .attr("fill", "#4da6ff");
 
+                    
+
                     svg.append("g")
                         .attr("transform", `translate(0,${height})`)
                         .call(d3.axisBottom(xScale))
                         .selectAll("text")
-                        .attr("transform","rotate(-25)")
-                        .style("font-size", "9px")
-                        .attr("dx", "-0.5em")  // Décalage horizontal
-                        .attr("dy", "0.2em");  // Décalage vertical
+                        .attr("transform","rotate(15)")
+                        .style("text-anchor", "start")
+                        .style("font-size", "11px")
+                        .attr("dx", "0em")  // Décalage horizontal
+                        .attr("dy", "2em");  // Décalage vertical
+
                     // Axe Y
                     svg.append("g")
-                        .call(d3.axisLeft(yScale));
+                        .call(d3.axisLeft().scale(yScale))
+                        .style("font-size", "11px")
+                        .selectAll("line")
+                        .style("stroke", "#ccc");
+                    
+                    svg.append("text")
+                        .attr("transform", "rotate(-90)")
+                        .attr("y", 0 - margin.left + 20)
+                        .attr("x", 0 - (height / 2))
+                        .attr("dy", "1em")
+                        .style("text-anchor", "middle")
+                        .style("font-size", "12px")
+                        .text("Nombre de délits");
 
 
                 }

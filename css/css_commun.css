@@ -84,10 +84,11 @@ section.Graphique-page1{
     margin: 15px auto;
     border: 1px solid #ccc;
     width: 60%;
-    height: 600px;
+    height: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    
     }
 
 #yearValue {
@@ -147,7 +148,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 /* ========= SECTION BOUTONS==========*/ 
 /*Peut être supprimée pour vos besoins spécifiques*/
 
-section.Boutons-à-cocher {
+section.Boutons {
     /*background-color: blue;*/
     margin-top: 110px;
     margin-left: 30px;
@@ -157,6 +158,7 @@ section.Boutons-à-cocher {
     width: 20vh;
     padding: 25px;
     font-size: 20px;
+    background-color: gray;
 
 
 }
@@ -169,8 +171,10 @@ section.Boutons-à-cocher {
 
 
 /* ========== SECTION Graphique page 2 =========== */
+
+
 section.Graphique-page2 {
-    border: 2px solid #ccc;
+    border: 5px solid #4a0ee2;
     display: flex; /* on les mets en ligne */
     justify-content: space-around; /* on met de l'espace entre les deux */
     margin-left: 50px;
@@ -189,20 +193,17 @@ section.Graphique-page2 div {
 #graph-page2-graph1 {
     width: 150vh;
     align-items: center;
+    border: 3px solid #08dd5a;
     
 }
 
-#Controls-page2  {
-    border: 2px solid #1b39e4;
-    width: 300 vh;
-    
 
-
-}
 section.Graphique-page2 svg {
     height: 700px;
-    width:150vh;
+    width:80vh;
     margin-left: 20px;
+    border: 3px solid #dd0808;
+
     
 
 }
@@ -212,3 +213,11 @@ section.Graphique-page2 svg {
     align-items: center;
 
 }
+
+/* Contexte */
+
+section.test_graph svg {
+    border: 1px solid #ccc;
+    background-color: #4a0ee2;
+}
+
