@@ -13,6 +13,8 @@ Représentation de la région Auvergne Rhône Alpes avec les départements et le
 
 ## Documentation
 
+[X] "Create beautiful Bar Charts with D3.js " : https://www.youtube.com/watch?v=sTOHoueLVJE&list=TLPQMjExMDIwMjXFgC447sMm4w&index=3
+
 ## Contacts
 
 ## To Do (à supprimer )

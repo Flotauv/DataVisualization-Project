@@ -2,6 +2,7 @@
 // ================= DETECTION DE PAGE =================== //
 const isCarte = document.getElementById("Carte") !== null;
 const isCarte2 = document.getElementById("Carte2") !== null;
+const isContexte = document.getElementById("Contexte") !== null;
 
     if (isCarte){
         console.log("On est sur la Carte")
@@ -253,7 +254,7 @@ if (isCarte2){
 
                         
                     // Création de l'espace qui va contenir le graphique 
-                    const svg1 = d3.select("#graph-page2-graph1").append("svg")
+                    const svg = d3.select("#graph-page2-graph1").append("svg")
                         .attr("width", width )
                         .attr("height", height)
                         .append("g")
@@ -267,47 +268,7 @@ if (isCarte2){
                         .domain(data.map(d => d.type))
                         .range([0, width])
                         .padding(0.4);
-                    // =============== TEST ================== //
-                    const svg2 = d3.select("#test").append("svg")
-                        .attr("width", width )
-                        .attr("height", height)
-                        .append("g")
-                        .attr("transform", `translate(0,${margin.left},${margin.top})`);
-
-                    const xScale2 = d3.scaleLinear()
-                        .domain([0,width])
-                        .range([0,d3.max(d,function(d) {return d.count })]);
-
-                    const yScale2 = d3.scaleBand()
-                        .range([height,0])
-                        .padding(0.1)
-                        .domain(data.map(function(d) {return d.type}));
-
-                    const xAxis = d3.axisBottom(xScale2);
-
-                    const yAxis = d3.axisLeft(yScale2);
-
-                    svg2.append("g")
-                        .attr("class","x axis")
-                        .attr("transform","translate(0,"+height+")")
-                        .call(xAxis);
-
-                    svg2.append("g")
-                        .call(yAxis);
-
-                    svg2.selectAll(".bar")
-                        .data(data)
-                        .enter().append("rect")
-                        .attr("y",function(d){return yScale2(d.type)})
-                        .attr("height",yScale2.bandwidth())
-                        .attr("x",0)
-                        .attr("width",function (d) {return xScale2(d.count)})
-                        .style("fill",'skyblue');
                     
-                    
-
-
-                    // =============== FIN TEST ================== //
 
                     // Création de l'axe des Y qui sera une 'échelle linéaire' => valeurs quantitatives
                     const yScale = d3.scaleLinear()
@@ -360,6 +321,8 @@ if (isCarte2){
                 UpdateChart(selectedYear,code_dpt);
 
                 
+
+                
             }
             
         
@@ -377,6 +340,106 @@ if (isCarte2){
 
 };
 
+if (isContexte) {
+
+    console.log("On est sur page Contexte");
+    let code_dpt = sessionStorage.getItem("code_dpt");
+    let selectedYear = sessionStorage.getItem("selectedYear");
+    let nom_dpt = sessionStorage.getItem("nom_dpt");
+
+    // =============== TEST ================== //
+    Papa.parse("dataset/db_CrimesDelits.csv", {
+            download : true,
+            header : true, // important sinon il charge les éléments [] et non entre {}
+            delimiter :",",
+            complete : function(results) {
+                console.log("CSV chargé  :",results.data)
+                const data = results.data;
+
+                function UpdateChart(selectedYear,codeDpt){
+                    const filtered = data.filter(d => {
+
+                        return d.Code_departement?.padStart(2,"0") === codeDpt &&
+                        d.Type==="Délit" && d.annee === selectedYear
+                    })
+                    console.log("Dataset filtré code et année :",filtered)
+
+                    const aggregate = {};
+                    filtered.forEach(d => {
+                        const indicateur = d.indicateur;
+                        const nombre = parseInt(d.nombre) ||0;
+                        aggregate[indicateur] = (aggregate[indicateur]||0)+nombre;
+                    });
+
+                    console.log("aggre récup",aggregate)
+
+                    const chartData = Object.entries(aggregate).map(([indicateur,count])=>({
+                            type : indicateur,
+                            count : count
+                        }));
+                    console.log("Données pour l'année ",selectedYear," et pour la région ",codeDpt,":",chartData)
+
+                    d3.select("#test_graph").selectAll("svg").remove();
+
+                    createBarChart(chartData);
+                };
+                    function createBarChart(data){
+                        const margin = { top: 70, right: 30, bottom: 60, left: 270 };
+                        const width = 800 + margin.left + margin.right ;
+                        const height = 300 + margin.top + margin.bottom;
+
+                        data.sort((a,b) =>  a.count -  b.count);
+
+                        svg2 = d3.select("#test").append("svg")
+                            .attr("width",width)
+                            .attr("heiht",height)
+                            .append("g")
+                            .attr("transform","translate(" + margin.left + "," +margin.top + ")");
+
+                        const x = d3.scaleLinear()
+                            .range([0,width])
+                            .domain([0,d3.max(data,function(d){return d.count})])
+
+                        const y =d3.scaleBand()
+                            .range([height,0])
+                            .padding(0.1)
+                            .domain(data.map(function (d) {return d.type}))
+
+                        const xAxis = d3.axisBottom(x)
+                        const yAxis = d3.axisLeft(y)
+
+                        svg2.append("g")
+                        .attr("class","x axis")
+                        .attr("transform","translate(0,"+height+")")
+                        .call(xAxis);
+
+                        svg2.append("g")
+                            .call(yAxis);
+
+                        svg2.selectAll(".bar")
+                            .data(data)
+                            .enter().append("rect")
+                            .attr("y",function(d){return y(d.type)})
+                            .attr("height",y.bandwidth())
+                            .attr("x",0)
+                            .attr("width",function (d) {return x(d.count)})
+                            .style("fill",'skyblue');
+
+
+                        
+
+                    };
+
+                UpdateChart(selectedYear,code_dpt);
+
+                
+
+
+            }});
+    
+
+};
+
 
 
 
@@ -384,14 +447,3 @@ if (isCarte2){
 
 // Adding SVG (Scalable Vector Graphics) Met à l'échelle un graphique si la personne zoom ou dézoom sur la page
 // Ajout d'un espace pour graphique dans les div de la section Graphique-page2
-
-
-
-
-
-
-
-
-
-
-

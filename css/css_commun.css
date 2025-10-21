@@ -36,6 +36,7 @@ nav.nav {
     align-items: center;
     width: 50vh;
     padding: 25px; /* marge interne */
+    
 
 }
 
@@ -53,6 +54,7 @@ nav.nav li {
 /* Image de la police comprise dans le header appelé header-top */
 header.header-top img {
     width: 150px;
+    
 
 }
 
@@ -215,9 +217,24 @@ section.Graphique-page2 svg {
 }
 
 /* Contexte */
-
-section.test_graph svg {
-    border: 1px solid #ccc;
-    background-color: #4a0ee2;
+section.test_graph {
+    
+    height: 600px;
+    margin-left: 30px;
+    
+}
+section.test_graph div {
+    margin-top: 10px;
+    border: 1px solid #150f0f;
+    height: 800px;
+    
 }
 
+#test svg {
+    height: 700px;
+    width: 300vh;
+    border: 1px solid #cc0f0f;
+
+
+
+}
