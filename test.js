@@ -420,16 +420,27 @@ if (isContexte) {
                             .attr("height",y.bandwidth())
                             .attr("x",0)
                             .attr("width",function (d) {return x(d.count)})
-                            .style("fill",'skyblue'); //changement de couleur ici 
+                            .style("fill",'skyblue'); //changement de couleur ici (pour ensuite mettre la chartre graphique de la police nationale)
 
                         svg2.append("g")
                             .attr("class","x axis")
                             .attr("transform","translate(0,"+height+")")
-                            .call(xAxis);
+                            .call(xAxis)
+                            .call(g => g.select(".domain").remove());
 
                         svg2.append("g")
-                            .call(yAxis);
-                        
+                            .attr("class", "y axis")
+                            .style("font-size", "8px")
+                            .call(yAxis)
+                            .selectAll('path')
+                            .style('stroke-width', '1.5px');
+                            
+
+                        svg2.selectAll(".y.axis .tick text")
+                            .text(function (d) {
+                            return d.toUpperCase();
+                            });
+
                         // Add labels to the end of each bar
                         svg2.selectAll(".label")
                             .data(data)
