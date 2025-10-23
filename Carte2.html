@@ -42,17 +42,8 @@
 
    <section class="Boutons">
         
-        <button class="btn active" id="délits" onclick="activateButton('délits')">Délits</button>
-        <button class="btn" id="crimes" onclick="activateButton('crimes')">Crimes</button>
-        <script>
-            function activateButton(buttonId) {
-                const allButons = document.querySelectorAll('.btn');
-                allButons.forEach(btn => btn.classList.remove('active'));
-                document.getElementById(buttonId).classList.add('active');
-                console.log("Bouton activé :",buttonId);
-                sessionStorage.setItem("btn_actif",buttonId);
-            };
-        </script>
+        <button class="btn active" id="délits" >Délits</button>
+        <button class="btn" id="crimes" >Crimes</button>
         
             
     </section>
@@ -64,6 +55,6 @@
         <div id="graph-page2"></div>
         
     </section>
-    <script src="main.js"></script>
+    <script src="test.js"></script>
 </body>
 </html>
