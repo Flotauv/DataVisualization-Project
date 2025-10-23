@@ -31,22 +31,7 @@
 
     </section>
 
-    <section class="Boutons">
-        <header class="header">
-            <label>
-                <input type="checkbox" name="Crime" value="Crime">
-                Crime
-            </label>
-
-            <label>
-                <input type="checkbox" name="Délit" value="Délit">
-                Délit
-            <label>
-
-        </header>
-        
-
-    </section>
+    
 
    <section class="Controls-page2">
     <div id="controls">
@@ -55,13 +40,29 @@
     </div>
    </section>
 
+   <section class="Boutons">
+        
+        <button class="btn active" id="délits" onclick="activateButton('délits')">Délits</button>
+        <button class="btn" id="crimes" onclick="activateButton('crimes')">Crimes</button>
+        <script>
+            function activateButton(buttonId) {
+                const allButons = document.querySelectorAll('.btn');
+                allButons.forEach(btn => btn.classList.remove('active'));
+                document.getElementById(buttonId).classList.add('active');
+                console.log("Bouton activé :",buttonId);
+                sessionStorage.setItem("btn_actif",buttonId);
+            };
+        </script>
+        
+            
+    </section>
+
 <!-- =========== SECTION GRAPHIQUE QUI PEUT BOUGER -->
     <section class="Graphique-page2">
-        <header class="header">
-        </header>
+        
 
-        <div id="graph-page2-graph1"></div>
-        <div id="graph-page2-graph2"></div>
+        <div id="graph-page2"></div>
+        
     </section>
     <script src="test.js"></script>
 </body>
