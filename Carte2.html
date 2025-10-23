@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title id="Carte2">Carte2</title>
+    <link rel="stylesheet" href="css/css_commun.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
+
+</head>
+<body>
+    <section class="Haut-de-page">
+        <header class="header-top">
+            <nav class="nav">
+                <img src="img/police_nationale.png" alt="logo du site">
+                <li> 
+                    <a href="Contexte.html">Contexte</a>
+                 </li>
+                <li> <a href="Carte.html">Carte</a>
+                </li>
+                <li><b> Sources</b> </li>
+            </nav>
+
+            <div style="text-align:center">
+                <h1 class="Titre-page"> Crimes et délits en  </h1> 
+            </div>
+            
+        </header>
+
+    </section>
+
+    
+
+   <section class="Controls-page2">
+    <div id="controls">
+        <div id="yearValue">Année : <span id="year_label">–</span></div>
+        <input type="range" id="year_slider" min="0" max="10" value="0" step="1">
+    </div>
+   </section>
+
+   <section class="Boutons">
+        
+        <button class="btn active" id="délits" onclick="activateButton('délits')">Délits</button>
+        <button class="btn" id="crimes" onclick="activateButton('crimes')">Crimes</button>
+        <script>
+            function activateButton(buttonId) {
+                const allButons = document.querySelectorAll('.btn');
+                allButons.forEach(btn => btn.classList.remove('active'));
+                document.getElementById(buttonId).classList.add('active');
+                console.log("Bouton activé :",buttonId);
+                sessionStorage.setItem("btn_actif",buttonId);
+            };
+        </script>
+        
+            
+    </section>
+
+<!-- =========== SECTION GRAPHIQUE QUI PEUT BOUGER -->
+    <section class="Graphique-page2">
+        
+
+        <div id="graph-page2"></div>
+        
+    </section>
+    <script src="main.js"></script>
+</body>
+</html>
