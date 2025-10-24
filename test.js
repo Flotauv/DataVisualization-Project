@@ -360,32 +360,7 @@ if (isCarte2){
 
                 };
 
-                document.addEventListener('DOMContentLoaded', function() {
-                    const buttons = document.querySelectorAll('.btn');
-  
-                    buttons.forEach(button => {
-                        button.addEventListener('click', function() {
-                        // Retirer la classe active de tous les boutons
-                        buttons.forEach(btn => btn.classList.remove('active'));
-                        
-                        // Ajouter la classe active au bouton cliqué
-                        this.classList.add('active');
-                        
-                        // Récupérer l'ID du bouton cliqué
-                        const buttonId = this.id;
-                        console.log("Bouton activé :", buttonId);
-                        
-                        // Déterminer le type de données à afficher
-                        const typeFilter = buttonId === 'crimes' ? 'crimes': 'délits';
-                        if (typeFilter === 'crimes'){
-                            console.log("On change de GRAAAAAPHHHH")
-                        }
-                        });
-                    });
-                                            
-                        
-
-                });
+              
 
                 
 
