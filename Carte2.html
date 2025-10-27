@@ -45,16 +45,6 @@
         <button class="btn active" id="délits" onclick=setActive(this) >Délits</button>
         <button class="btn" id="crimes" onclick=setActive(this) >Crimes</button>
         <script>
-            function showGraph(elementId){
-                baliseDelitId = document.getElementById('graph-page2');
-                baliseCrimesId = document.getElementById('graph-page2-test');
-                if (elementId.getElementById('délits')){
-                    (baliseDelitId.visibility='visible') && (baliseCrimesId.visibility='hidden');
-                }else {
-                    (baliseDelitId.visibility='hidden') && (baliseCrimesId.visibility='visible');
-                }
-                console.log("elementId du btn activé :",elementId);
-            };
 
             function setActive(element) {
                 // Retirer active de tous
@@ -64,15 +54,9 @@
                 // Ajouter active au bouton cliqué
                 element.classList.add('active');
 
-                const baliseDelitId = document.getElementById('graph-page2');
-                const baliseCrimesId = document.getElementById('graph-page2-test');
-
-                if (element.id === "délits"){
-                    (baliseDelitId.style.display='block') && (baliseCrimesId.style.display='none');
-                } else {
-                    (baliseDelitId.style.display='none') && (baliseCrimesId.style.display='block');
-
-                }
+                const isDelit = element.id ==="délits"? 'Délit':'Crime';
+                console.log(isDelit);
+                sessionStorage.setItem("isDelit",isDelit);
             };
 
                 
@@ -92,11 +76,8 @@
 
         <div id="graph-page2"></div>
 
-        <div id="graph-page2-test">
-            <h2>ENORME CHIBRE</h2>
-        </div>
         
     </section>
-    <script src="test.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>

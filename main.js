@@ -1,8 +1,13 @@
-
 // ================= DETECTION DE PAGE =================== //
 const isCarte = document.getElementById("Carte") !== null;
 const isCarte2 = document.getElementById("Carte2") !== null;
 const isContexte = document.getElementById("Contexte") !== null;
+
+
+
+
+
+
 
     if (isCarte){
 
@@ -209,7 +214,7 @@ if (isCarte2){
     let code_dpt = sessionStorage.getItem("code_dpt");
     let selectedYear = sessionStorage.getItem("selectedYear");
     let nom_dpt = sessionStorage.getItem("nom_dpt");
-    let btn_actif = sessionStorage.getItem("btn_actif");
+    
 
     
     
@@ -220,7 +225,7 @@ if (isCarte2){
     const yearLabel = d3.select("#year_label");  
 
     console.log("Les variables de la page 1 sur la page 2 sont : ",code_dpt,",",selectedYear,",",nom_dpt);
-    console.log("Le bouton actif est :",btn_actif);
+    
     
 
     Papa.parse("dataset/db_CrimesDelits.csv", {
@@ -250,11 +255,20 @@ if (isCarte2){
                 // Valeur par défaut du slider 
                 yearLabel.text(selectedYear);
 
-                function UpdateChart(selectedYear,codeDpt){
+                function UpdateChart(selectedYear,codeDpt, infractionType){
+
+                    const activeButton = document.querySelector('.btn.active');
+                    console.log("btn détecté test.js ",activeButton.id);
+
+                    if (!infractionType){
+                        infractionType = sessionStorage.getItem('isDelit') || 'Délit';
+                        console.log("Type d'infraction chargé sur la page 2 :",infractionType);
+
+                    };
                     const filtered = data.filter(d => {
 
                         return d.Code_departement?.padStart(2,"0") === codeDpt &&
-                        d.Type==="Délit" && d.annee === selectedYear
+                        d.Type=== infractionType && d.annee === selectedYear
                     })
                     console.log("Dataset filtré code et année :",filtered)
 
@@ -350,9 +364,14 @@ if (isCarte2){
                             .style("font-weight", "bold")
                             .style('fill', '#3c3d28')
                             .text(function (d) { return d.count; });
+
+                    
                     };
 
                 };
+
+              
+
                 
 
                 // Mise à jour avec le slider
@@ -361,12 +380,11 @@ if (isCarte2){
                     const selectedYear = years[index];
                     sessionStorage.setItem("sliderIndex",index.toString());
                     yearLabel.text(selectedYear);
-                    UpdateChart(selectedYear,code_dpt);
+                    UpdateChart(selectedYear,code_dpt,infractionType);
                 });
-                
-                UpdateChart(selectedYear,code_dpt);
+                // pb ici 
+                UpdateChart(selectedYear,code_dpt,infractionType);
 
-                
 
                 
             }
@@ -385,143 +403,3 @@ if (isCarte2){
     
 
 };
-
-if (isContexte) {
-
-    console.log("On est sur page Contexte");
-    let code_dpt = sessionStorage.getItem("code_dpt");
-    let selectedYear = sessionStorage.getItem("selectedYear");
-    let nom_dpt = sessionStorage.getItem("nom_dpt");
-
-    // =============== TEST ================== //
-    Papa.parse("dataset/db_CrimesDelits.csv", {
-            download : true,
-            header : true, // important sinon il charge les éléments [] et non entre {}
-            delimiter :",",
-            complete : function(results) {
-                console.log("CSV chargé  :",results.data)
-                const data = results.data;
-
-                function UpdateChart(selectedYear,codeDpt){
-                    const filtered = data.filter(d => {
-
-                        return d.Code_departement?.padStart(2,"0") === codeDpt &&
-                        d.Type==="Délit" && d.annee === selectedYear
-                    })
-                    console.log("Dataset filtré code et année :",filtered)
-
-                    const aggregate = {};
-                    filtered.forEach(d => {
-                        const indicateur = d.indicateur;
-                        const nombre = parseInt(d.nombre) ||0;
-                        aggregate[indicateur] = (aggregate[indicateur]||0)+nombre;
-                    });
-
-                    console.log("aggre récup",aggregate)
-
-                    const chartData = Object.entries(aggregate).map(([indicateur,count])=>({
-                            type : indicateur,
-                            count : count
-                        }));
-                    console.log("Données pour l'année ",selectedYear," et pour la région ",codeDpt,":",chartData)
-
-                    d3.select("#test_graph").selectAll("svg").remove();
-
-                    createBarChart(chartData);
-                };
-                    function createBarChart(data){
-                        const margin = { top: 70, right: 30, bottom: 60, left: 270 };
-                        const width = 800 + margin.left + margin.right ;
-                        const height = 300 + margin.top + margin.bottom;
-
-                        data.sort((a,b) =>  a.count -  b.count);
-
-                        svg2 = d3.select("#test").append("svg")
-                            .attr("width",width)
-                            .attr("heiht",height)
-                            .append("g")
-                            .attr("transform","translate(" + margin.left + "," +margin.top + ")");
-
-                        const x = d3.scaleLinear()
-                            .range([0,width])
-                            .domain([0,d3.max(data,function(d){return d.count})])
-
-                        const y =d3.scaleBand()
-                            .range([height,0])
-                            .padding(0.1)
-                            .domain(data.map(function (d) {return d.type}))
-
-                        const xAxis = d3.axisBottom(x)
-                            .ticks(5)
-                            .tickSize(0);
-
-                        const yAxis = d3.axisLeft(y)
-                            .tickSize(0)
-                            .tickPadding(20);
-
-                        svg2.selectAll(".bar")
-                            .data(data)
-                            .enter().append("rect")
-                            .attr("y",function(d){return y(d.type)})
-                            .attr("height",y.bandwidth())
-                            .attr("x",0)
-                            .attr("width",function (d) {return x(d.count)})
-                            .style("fill",'skyblue'); //changement de couleur ici (pour ensuite mettre la chartre graphique de la police nationale)
-
-                        svg2.append("g")
-                            .attr("class","x axis")
-                            .attr("transform","translate(0,"+height+")")
-                            .call(xAxis)
-                            .call(g => g.select(".domain").remove());
-
-                        svg2.append("g")
-                            .attr("class", "y axis")
-                            .style("font-size", "8px")
-                            .call(yAxis)
-                            .selectAll('path')
-                            .style('stroke-width', '1.5px');
-                            
-
-                        svg2.selectAll(".y.axis .tick text")
-                            .text(function (d) {
-                            return d.toUpperCase();
-                            });
-
-                        // Add labels to the end of each bar
-                        svg2.selectAll(".label")
-                            .data(data)
-                            .enter().append("text")
-                            .attr("x", function (d) { return x(d.count) + 5; })
-                            .attr("y", function (d) { return y(d.type) + y.bandwidth() / 2; })
-                            .attr("dy", ".35em")
-                            .style("font-family", "sans-serif")
-                            .style("font-size", "10px")
-                            .style("font-weight", "bold")
-                            .style('fill', '#3c3d28')
-                            .text(function (d) { return d.count; });
-
-
-                        
-
-
-                        
-
-                    };
-
-                UpdateChart(selectedYear,code_dpt);
-
-                
-
-
-            }});
-    
-
-};
-
-
-
-
-
-
-// Adding SVG (Scalable Vector Graphics) Met à l'échelle un graphique si la personne zoom ou dézoom sur la page
-// Ajout d'un espace pour graphique dans les div de la section Graphique-page2
