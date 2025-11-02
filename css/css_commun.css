@@ -249,3 +249,25 @@ section.test_graph div {
 
 
 }
+
+/* ========== SECTION Graphique Page Contexte =========== */
+
+.image-wrapper {
+    width: 80%;
+    margin: 20px auto;
+    text-align: center;
+}
+
+.image-wrapper img {
+    width: 100%;
+    max-width: 1000px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+p {
+    text-align: justify;
+    margin-right: 40px; /* espace à droite pour que le texte justifier ne colle pas le bord de page */
+    margin-left: 10px; 
+    line-height: 1.6; 
+}

@@ -31,6 +31,7 @@
     </section>
 
     <section class="test_graph">
+
         <section class="contenu-page">
 
             <h2>Contexte du projet</h2>
@@ -47,9 +48,8 @@
                 visualisations claires, interactives et pédagogiques.
             </p>
 
-
             <p>
-             Nous avons choisi de concentrer une partie de notre analyse sur la région
+                Nous avons choisi de concentrer une partie de notre analyse sur la région
                 <strong>Auvergne-Rhône-Alpes</strong>, car elle représente un territoire dynamique,
                 urbanisé et contrasté, dans lequel les tendances criminelles peuvent présenter une
                 forte hétérogénéité entre grandes métropoles (comme Lyon ou Grenoble) et zones plus rurales.
@@ -65,28 +65,54 @@
                 données publiques, tout en le rendant lisible et exploitable pour un utilisateur final.
             </p>
 
-            <p>
-                blablablabla
-            </p>
-
         </section>
 
-             <section class="apercu-projet">
+        <section class="apercu-projet">
             <h2>Aperçu de notre visualisation</h2>
             <p>
                 Voici le prototype de la visualisation que nous avons développé pour cadrer notre sujet.
-                La première carte à pour but de servir de menu principale pour les deux autres visualistions.
-                La deuxième carte, sépare les catégories entre délit et crime, ce qui permet une meilleur compréhension des tendances par départements.
-                Enfin, la troisième visualisation est le niveau de granularité le plus élevé pour que l'utilisateur puissent voir en détail la compositions des crimes / délits.
-         </p>
+                La première carte a pour but de servir de menu principale pour les deux autres visualisations.
+                La deuxième carte sépare les catégories entre délit et crime, ce qui permet une meilleure compréhension des tendances par départements.
+                Enfin, la troisième visualisation est le niveau de granularité le plus élevé pour que l'utilisateur puisse voir en détail la composition des crimes / délits.
+            </p>
 
-            <div style="text-align:center; margin-top:20px;">
-                <img src="img/POC Visu.png" alt="Prototype de visualisation de données" 
-                     style="max-width:80%; border: 1px solid #ccc; border-radius:10px;">
+            <div class="image-wrapper">
+                <img src="img/POC Visu.png" alt="Prototype de visualisation de données">
             </div>
+
         </section>
 
-        </div>
+        <section class="choix-graphique">
+            <h2>Choix des graphiques</h2>
+            <p>
+                Pous notre première visualisation, nous avons choisi d’utiliser une carte choroplèthe (carte avec un gradient de couleurs)
+                représentant le pourcentage de crimes et délits rapporté à la population afin d’offrir une vision claire et intuitive
+                du niveau de délinquance sur le territoire. Ce choix permet de normaliser les données et de comparer équitablement
+                les départements, indépendamment de leur taille ou de leur population totale. La carte agit également comme un menu
+                interactif : en cliquant sur un département, l’utilisateur est redirigé vers une page dédiée présentant des visualisations
+                plus détaillées. Ce fonctionnement progressif facilite l’exploration des données, tout en assurant une navigation fluide
+                du global vers le spécifique, conformément aux bonnes pratiques de visualisation et d'analyse exploratoire.
+            </p>
+
+            <p>
+                Pour notre seconde visualisation, nous proposons une visualisation détaillée du département sélectionné à partir de la carte.
+                L’objectif est de décomposer la délinquance locale grâce à un double diagramme en barres : d’un côté les sous-catégories
+                de délits, et de l’autre les sous-catégories de crimes. Cette représentation permet de comparer directement les
+                contributions respectives de chaque type d’infraction et d’identifier les phénomènes les plus présents dans le département.
+                L’utilisateur peut ainsi comprendre, au-delà des chiffres globaux, la structure précise de la criminalité locale et les
+                catégories dominantes.
+            </p>
+
+            <p>
+                En cliquant sur l’un des deux histogrammes, l’utilisateur accède alors à notre troisième visualisation. C'est un niveau d’analyse encore plus fin.
+                La troisième page propose une visualisation en bulles positionnées en deux dimensions : l’axe vertical représente
+                la proportion de la sous-catégorie dans le total des crimes ou délits du département, tandis que l’axe horizontal
+                montre sa proportion à l’échelle régionale. Ce graphique permet de situer chaque sous-catégorie par rapport au reste
+                de la région et de repérer les phénomènes spécifiques à un territoire. L’utilisateur peut ainsi identifier quelles
+                infractions sont particulièrement sur-représentées ou sous-représentées dans le département choisi.
+            </p>
+
+        </section>
 
     </section>
 
