@@ -215,8 +215,12 @@ if (isCarte2){
     let selectedYear = sessionStorage.getItem("selectedYear");
     let nom_dpt = sessionStorage.getItem("nom_dpt");
     
-
+    const btn_delit = document.getElementById("délits");
+    const btn_crime = document.getElementById("crimes");
     
+    
+
+
     
     
     
@@ -244,7 +248,8 @@ if (isCarte2){
                 if (initialIndex>= length.years || initialIndex <0 || initialIndex === NaN){
                     initialIndex = 0;
                 }
-                 
+                
+                
 
                 // Slider des années
                 yearSlider
@@ -254,6 +259,28 @@ if (isCarte2){
 
                 // Valeur par défaut du slider 
                 yearLabel.text(selectedYear);
+
+                //console.log("btn select",document.querySelector('.btn.active').id);
+                console.log("bite")
+                infractionType = document.querySelector('.btn.active').id ? "Délit":"Crime";
+
+                function setActive(element) {
+
+                    // Retirer active de tous
+                    document.querySelectorAll('.btn').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    // Ajouter active au bouton cliqué
+                    element.classList.add('active');
+
+                    const isDelit = element.id ==="délits"? 'Délit':'Crime';
+                    console.log("brrrrrrr",isDelit);
+                    sessionStorage.setItem("isDelit",isDelit);
+                    UpdateChart(selectedYear,codeDpt,isDelit);
+                    
+                            
+                };
+                
 
                 function UpdateChart(selectedYear,codeDpt, infractionType){
 
@@ -386,7 +413,6 @@ if (isCarte2){
                 UpdateChart(selectedYear,code_dpt,infractionType);
 
 
-                
             }
             
         
