@@ -43,6 +43,8 @@ const isContexte = document.getElementById("Contexte") !== null;
         
 
         
+
+        
         
 
         
@@ -215,24 +217,28 @@ if (isCarte2){
     let selectedYear = sessionStorage.getItem("selectedYear");
     let nom_dpt = sessionStorage.getItem("nom_dpt");
     
-    const btn_delit = document.getElementById("délits");
-    const btn_crime = document.getElementById("crimes");
-    
-    
+    let btn_delit = document.getElementById("délits");
+    console.log("le btn délit :",btn_delit);
+    let btn_crime = document.getElementById("crimes");
+    console.log("le btn crimes :",btn_crime);
 
+    btn_delit.addEventListener("click",() => {});
+    function setActive(element) {
+        
+        // Retirer active de tous
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        // Ajouter active au bouton cliqué
+        element.classList.add('active');
 
-    
-    
-    
+        let isDelit = element.id ==="délits"? 'Délit':'Crime';
+        console.log("brrrrrrr",isDelit);
+        sessionStorage.setItem("isDelit",isDelit);
 
-    const yearSlider = d3.select("#year_slider");
-    const yearLabel = d3.select("#year_label");  
+        
 
-    console.log("Les variables de la page 1 sur la page 2 sont : ",code_dpt,",",selectedYear,",",nom_dpt);
-    
-    
-
-    Papa.parse("dataset/db_CrimesDelits.csv", {
+        Papa.parse("dataset/db_CrimesDelits.csv", {
             download : true,
             header : true, // important sinon il charge les éléments [] et non entre {}
             delimiter :",",
@@ -261,25 +267,12 @@ if (isCarte2){
                 yearLabel.text(selectedYear);
 
                 //console.log("btn select",document.querySelector('.btn.active').id);
-                console.log("bite")
+                
                 infractionType = document.querySelector('.btn.active').id ? "Délit":"Crime";
 
-                function setActive(element) {
+                
 
-                    // Retirer active de tous
-                    document.querySelectorAll('.btn').forEach(btn => {
-                        btn.classList.remove('active');
-                    });
-                    // Ajouter active au bouton cliqué
-                    element.classList.add('active');
-
-                    const isDelit = element.id ==="délits"? 'Délit':'Crime';
-                    console.log("brrrrrrr",isDelit);
-                    sessionStorage.setItem("isDelit",isDelit);
-                    UpdateChart(selectedYear,codeDpt,isDelit);
-                    
-                            
-                };
+                
                 
 
                 function UpdateChart(selectedYear,codeDpt, infractionType){
@@ -407,16 +400,45 @@ if (isCarte2){
                     const selectedYear = years[index];
                     sessionStorage.setItem("sliderIndex",index.toString());
                     yearLabel.text(selectedYear);
-                    UpdateChart(selectedYear,code_dpt,infractionType);
+                    UpdateChart(selectedYear,code_dpt,isDelit);
                 });
-                // pb ici 
-                UpdateChart(selectedYear,code_dpt,infractionType);
+                
+                UpdateChart(selectedYear,code_dpt,isDelit);
+
+                // Pb à l'initialisation de la page 
 
 
             }
             
         
         });
+        // Initialisation 
+
+
+
+        
+        
+        
+                
+    };
+
+    
+    
+    
+
+
+    
+    
+    
+
+    const yearSlider = d3.select("#year_slider");
+    const yearLabel = d3.select("#year_label");  
+
+    console.log("Les variables de la page 1 sur la page 2 sont : ",code_dpt,",",selectedYear,",",nom_dpt);
+    
+    
+
+    
 
          
 
