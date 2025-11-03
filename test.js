@@ -217,12 +217,57 @@ if (isCarte2){
     let selectedYear = sessionStorage.getItem("selectedYear");
     let nom_dpt = sessionStorage.getItem("nom_dpt");
     
-    let btn_delit = document.getElementById("délits");
-    console.log("le btn délit :",btn_delit);
-    let btn_crime = document.getElementById("crimes");
-    console.log("le btn crimes :",btn_crime);
+    document.getElementById("Titre-page2").textContent = "Crimes et délits en " + nom_dpt;
 
-    btn_delit.addEventListener("click",() => {});
+    
+    Papa.parse("dataset/db_CrimesDelits.csv", {
+        download : true,
+        header : true, // important sinon il charge les éléments [] et non entre {}
+        delimiter :",",
+        complete : function(results) {
+
+
+        console.log("CSV chargé  :",results.data)
+        const data = results.data;
+        // Extraire les années uniques triées
+        const years = [... new Set(data.map(d => d.annee))].sort();
+        console.log("Années dispo :",years)
+
+        let savedIndex = sessionStorage.getItem("sliderIndex");
+        console.log(savedIndex)
+        let initialIndex = savedIndex !== null ? parseInt(savedIndex) : 0;
+        console.log(initialIndex)
+        if (initialIndex>= length.years || initialIndex <0 || initialIndex === NaN){
+            initialIndex = 0;
+        }
+        
+        const yearSlider = d3.select("#year_slider");
+        const yearLabel = d3.select("#year_label");  
+
+        console.log("Les variables de la page 1 sur la page 2 sont : ",code_dpt,",",selectedYear,",",nom_dpt);
+
+        // Slider des années
+        yearSlider
+            .attr("min",0)
+            .attr("max",years.length-1)
+            .attr("value",initialIndex);
+
+        // Valeur par défaut du slider 
+        yearLabel.text(selectedYear);
+
+        
+        
+
+        
+
+        
+        
+
+
+    }});
+
+    
+
     function setActive(element) {
         
         // Retirer active de tous
@@ -255,7 +300,10 @@ if (isCarte2){
                     initialIndex = 0;
                 }
                 
-                
+                const yearSlider = d3.select("#year_slider");
+                const yearLabel = d3.select("#year_label");  
+
+                console.log("Les variables de la page 1 sur la page 2 sont : ",code_dpt,",",selectedYear,",",nom_dpt);
 
                 // Slider des années
                 yearSlider
@@ -266,9 +314,8 @@ if (isCarte2){
                 // Valeur par défaut du slider 
                 yearLabel.text(selectedYear);
 
-                //console.log("btn select",document.querySelector('.btn.active').id);
                 
-                infractionType = document.querySelector('.btn.active').id ? "Délit":"Crime";
+                
 
                 
 
@@ -277,14 +324,9 @@ if (isCarte2){
 
                 function UpdateChart(selectedYear,codeDpt, infractionType){
 
-                    const activeButton = document.querySelector('.btn.active');
-                    console.log("btn détecté test.js ",activeButton.id);
+                    
 
-                    if (!infractionType){
-                        infractionType = sessionStorage.getItem('isDelit') || 'Délit';
-                        console.log("Type d'infraction chargé sur la page 2 :",infractionType);
-
-                    };
+                    
                     const filtered = data.filter(d => {
 
                         return d.Code_departement?.padStart(2,"0") === codeDpt &&
@@ -391,7 +433,8 @@ if (isCarte2){
                 };
 
               
-
+                //Initialisation
+                //UpdateChart(selectedYear,code_dpt,infractionType);
                 
 
                 // Mise à jour avec le slider
@@ -405,14 +448,14 @@ if (isCarte2){
                 
                 UpdateChart(selectedYear,code_dpt,isDelit);
 
-                // Pb à l'initialisation de la page 
+                 
 
 
             }
             
         
         });
-        // Initialisation 
+        
 
 
 
@@ -431,10 +474,7 @@ if (isCarte2){
     
     
 
-    const yearSlider = d3.select("#year_slider");
-    const yearLabel = d3.select("#year_label");  
-
-    console.log("Les variables de la page 1 sur la page 2 sont : ",code_dpt,",",selectedYear,",",nom_dpt);
+    
     
     
 
