@@ -217,7 +217,7 @@ if (isCarte2){
     let selectedYear = sessionStorage.getItem("selectedYear");
     let nom_dpt = sessionStorage.getItem("nom_dpt");
     
-    document.getElementById("Titre-page2").textContent = "Crimes et délits en " + nom_dpt;
+    document.getElementById("Titre-page2").textContent = "Crimes et délits pour la région :    " + nom_dpt;
 
     
     Papa.parse("dataset/db_CrimesDelits.csv", {
@@ -254,6 +254,16 @@ if (isCarte2){
 
         // Valeur par défaut du slider 
         yearLabel.text(selectedYear);
+
+        // Mise à jour avec le slider
+        yearSlider.on("input", (event) => {
+            const index = +event.target.value;
+            console.log("Slider touché :",index);
+            const selectedYear = years[index];
+            sessionStorage.setItem("sliderIndex",index.toString());
+            sessionStorage.setItem("selectedYear",selectedYear);
+            console.log("Année selectionnée sur le slider dans délits et crimes touchés :",selectedYear)
+            yearLabel.text(selectedYear)});
 
         
         
@@ -294,11 +304,17 @@ if (isCarte2){
                 const years = [... new Set(data.map(d => d.annee))].sort();
                 console.log("Années dispo :",years)
 
+                selectedYear = sessionStorage.getItem("selectedYear");
+
                 let savedIndex = sessionStorage.getItem("sliderIndex");
-                let initialIndex = savedIndex !== null ? parseInt(savedIndex) : 0;
-                if (initialIndex>= length.years || initialIndex <0 || initialIndex === NaN){
+                console.log("LE SLIDER QUAND ON TOUCHE UN BTN EST :",savedIndex);
+                let initialIndex = years.indexOf(selectedYear);
+                console.log("Le nouvel index suivit BIIIIITE ",initialIndex);
+                if (initialIndex === -1){
                     initialIndex = 0;
+                    selectedYear=years[0];
                 }
+                
                 
                 const yearSlider = d3.select("#year_slider");
                 const yearLabel = d3.select("#year_label");  
@@ -440,8 +456,10 @@ if (isCarte2){
                 // Mise à jour avec le slider
                 yearSlider.on("input", (event) => {
                     const index = +event.target.value;
+                    console.log("Slider touché :",index);
                     const selectedYear = years[index];
                     sessionStorage.setItem("sliderIndex",index.toString());
+                    sessionStorage.setItem("selectedYear",selectedYear);
                     yearLabel.text(selectedYear);
                     UpdateChart(selectedYear,code_dpt,isDelit);
                 });

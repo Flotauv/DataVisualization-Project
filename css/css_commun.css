@@ -170,15 +170,15 @@ section.Boutons {
     border: 2px solid #ddd;
     background-color: #fff;
     color: #666;
-    font-size: 16px;
+    font-size: 20px;
     cursor: pointer;
     border-radius: 5px;
     transition: all 0.3s ease;
 }
 .btn.active {
-    background-color: #007bff;
+    background-color: lch(53.37% 76.33 286.69);
     border: 2px solid #ddd;
-    font-size: 16px;
+    font-size: 20px;
     cursor: pointer;
     border-radius: 5px;
 
@@ -198,7 +198,7 @@ section.Boutons {
 
 
 section.Graphique-page2 {
-    border: 5px solid #4a0ee2;
+    
     display: flex; /* on les mets en ligne */
     justify-content: space-around; /* on met de l'espace entre les deux */
     margin-left: 50px;
@@ -207,14 +207,9 @@ section.Graphique-page2 {
     height: 800px; /* paramètre qui va varier */
 }
 
-section.Graphique-page2 div {
-    border: 5px solid #aa5209;
-    
-    
-}
 
 section.Graphique-page2 svg {
-    border: 5px solid #09c939;
+    
     height: 700px;
     width: 155vh;
     
