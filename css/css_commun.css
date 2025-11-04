@@ -71,15 +71,24 @@ header.header-top img {
 }
 /* ==================================== CONTEXTE ================================*/
 
-#image-wrapper img {
-    height: 500px;
-    width: 160vh;
-    margin-right: 20px;
+.image-wrapper {
+    width: 80%;
+    margin: 20px auto;
+    text-align: center;
 }
 
-section.test_graph {
-    margin-left: 50px;
-    margin-right: 20px;
+.image-wrapper img {
+    width: 100%;
+    max-width: 1000px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+p {
+    text-align: justify;
+    margin-right: 40px; /* espace à droite pour que le texte justifier ne colle pas le bord de page */
+    margin-left: 10px; 
+    line-height: 1.6; 
 }
 
 /* ==================================== CARTE ================================*/
