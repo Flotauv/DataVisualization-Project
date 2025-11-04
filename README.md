@@ -20,6 +20,7 @@ Représentation de la région Auvergne Rhône Alpes avec les départements et le
 [X] "Best way to include your html javascript files into your html code" , https://www.youtube.com/watch?v=d14vAVDCxEg 
 
 [X] Chartre graphique police nationale : https://www.indre-et-loire.gouv.fr/content/download/27640/182461/file/Nouvelle%20charte%20graphique%20des%20services%20de%20l'Etat.pdf
+[X] "Le summun du cool : transition entre pages avec Barba.js!" : "https://youtu.be/AqPszQw4B5k?si=RsaYHnvTxBmGqTNM"
 
 
 ## Contacts

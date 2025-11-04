@@ -23,8 +23,8 @@ body {
 /* ========= SECTION HAUT-DE-PAGE==========*/
 
 section.Haut-de-page {
-    background-color:red; /* à supp ensuite*/
-    background : url('');
+    
+    
     height: 200px;
     margin-left: 30px;
     
@@ -42,7 +42,7 @@ nav.nav {
 }
 nav a  {
     text-decoration: none;
-    color: #150f0f;
+    color: #000000;
     
 }
 
@@ -51,11 +51,17 @@ nav.nav li {
     justify-content: space-between;
 }
 
-/* Titre principal de la section */
+/* Titre principal de toutes les pages */
 .Titre-page {
     color: black;
     font-size: 45px;
+    margin-top: 20px;
+    /*border: 2px solid red;*/
     /*font-family: 'Montaga';*/ 
+}
+
+#sous-titre-2 {
+    color :#000091
 }
 /* Image de la police comprise dans le header appelé header-top */
 header.header-top img {
@@ -63,12 +69,24 @@ header.header-top img {
     
 
 }
+/* ==================================== CONTEXTE ================================*/
+
+#image-wrapper img {
+    height: 500px;
+    width: 160vh;
+    margin-right: 20px;
+}
+
+section.test_graph {
+    margin-left: 50px;
+    margin-right: 20px;
+}
 
 /* ==================================== CARTE ================================*/
 /* ========= SECTION Graphique page 1 (La carte de la région)==========*/
 
 section.Graphique-page1{
-    background: #fff;
+    
     /*border-radius: 8px;*/
     margin-bottom: 30px;
     /*background-color: blue;*/
@@ -101,7 +119,7 @@ section.Graphique-page1{
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 10px;
-    color: #333;
+    color: #000;
     }
 
 input[type="range"] {
@@ -176,7 +194,7 @@ section.Boutons {
     transition: all 0.3s ease;
 }
 .btn.active {
-    background-color: lch(53.37% 76.33 286.69);
+    background-color: #000091;
     border: 2px solid #ddd;
     font-size: 20px;
     cursor: pointer;
@@ -194,6 +212,7 @@ section.Boutons {
 
 
 
+
 /* ========== SECTION Graphique page 2 =========== */
 
 
@@ -201,17 +220,17 @@ section.Graphique-page2 {
     
     display: flex; /* on les mets en ligne */
     justify-content: space-around; /* on met de l'espace entre les deux */
-    margin-left: 50px;
     
     
-    height: 800px; /* paramètre qui va varier */
+    
+    height: 590px; /* paramètre qui va varier */
 }
 
 
 section.Graphique-page2 svg {
     
     height: 700px;
-    width: 155vh;
+    width: 180vh;
     
     
 }
@@ -222,26 +241,12 @@ section.Graphique-page2 svg {
     align-items: center;
 
 }
+/* ========== SECTION Bas de page 2 =========== */
 
+#image-bas-de-page img {
+    
+    height: 60px;
+    width: 6vh;
+    margin-right: 15px;
+}
 /* Contexte */
-section.test_graph {
-    
-    height: 600px;
-    margin-left: 30px;
-    
-}
-section.test_graph div {
-    margin-top: 10px;
-    border: 1px solid #150f0f;
-    height: 800px;
-    
-}
-
-#test svg {
-    height: 700px;
-    width: 140vh;
-    border: 1px solid #cc0f0f;
-
-
-
-}
