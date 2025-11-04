@@ -7,6 +7,7 @@ Les graphiques sont réalisés grâce à la librairie D3.js
 
 - Les données récoltées proviennent de  [data.gouv](https://www.data.gouv.fr/datasets/bases-statistiques-communale-departementale-et-regionale-de-la-delinquance-enregistree-par-la-police-et-la-gendarmerie-nationales/) une plateforme open source du gouvernement français.  
 - L'objectif est de pouvoir expliquer ou exposer des faits sur les actes de délinquance en Auvergne Rhône Alpes
+- Les données sont chargées via le package Paparse.js dès que l'utilisateur clique sur un nouveau département, une nouvelle année sur le slider, un bouton ...
 
 ## Organisation
 
@@ -19,11 +20,11 @@ La carte est intéractive
 - **Carte2.html** : Section graphique en barres inclinées comportant le nombre de  délits et de crimes de la region choisie sur la carte.  
 Le slider permet de naviguer suivant les années pour voir l'évolution des délits/crimes la région.
 
-- **Carte3.html** : 
-
+- **Carte3.html** :   
+- **data_processing.ipynb** : Notebook permettant le traitement en amont des sources de données récoltées.  
+- **css_commun.css** : Fichier permettant d'appliquer les features esthétiques aux éléments des fichiers .html . 
 - **main.js** : Fichier javascript  de développement des caractéristiques visibles sur le site.
 
-Les données sont chargées via le package Paparse.js dès que l'utilisateur clique sur un nouveau département, une nouvelle année sur le slider, un bouton ...
 
 ### Dockerfile 
 
