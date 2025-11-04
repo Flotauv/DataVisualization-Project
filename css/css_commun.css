@@ -91,6 +91,10 @@ p {
     line-height: 1.6; 
 }
 
+section.test_graph {
+    margin-left: 50px;
+}
+
 /* ==================================== CARTE ================================*/
 /* ========= SECTION Graphique page 1 (La carte de la région)==========*/
 
