@@ -1,0 +1,261 @@
+/*Import des styles de police (Montserrat) */
+
+@import url(https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap);
+
+
+
+/* import de police d'écriture */
+@font-face {
+        font-family:'Montaga';
+        src: url(../fonts/Montaga-Regular.ttf);
+    }
+
+/*=========== REFS COMMUNES À toutes les pages =================== */
+* {
+    font-family: 'Montserrat', sans-serif;
+}
+/* body fait référence à toute la page */
+
+body {
+    margin : 0 auto;
+}
+/* ========= SECTION HAUT-DE-PAGE==========*/
+
+section.Haut-de-page {
+    
+    
+    height: 200px;
+    margin-left: 30px;
+    
+}
+nav.nav {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    align-items: center;
+    width: 50vh;
+    padding: 25px; /* marge interne */
+    
+    
+
+}
+nav a  {
+    text-decoration: none;
+    color: #000000;
+    
+}
+
+nav.nav li {
+
+    justify-content: space-between;
+}
+
+/* Titre principal de toutes les pages */
+.Titre-page {
+    color: black;
+    font-size: 45px;
+    margin-top: 20px;
+    /*border: 2px solid red;*/
+    /*font-family: 'Montaga';*/ 
+}
+
+#sous-titre-2 {
+    color :#000091
+}
+/* Image de la police comprise dans le header appelé header-top */
+header.header-top img {
+    width: 150px;
+    
+
+}
+/* ==================================== CONTEXTE ================================*/
+
+.image-wrapper {
+    width: 80%;
+    margin: 20px auto;
+    text-align: center;
+}
+
+.image-wrapper img {
+    width: 100%;
+    max-width: 1000px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+p {
+    text-align: justify;
+    margin-right: 40px; /* espace à droite pour que le texte justifier ne colle pas le bord de page */
+    margin-left: 10px; 
+    line-height: 1.6; 
+}
+
+/* ==================================== CARTE ================================*/
+/* ========= SECTION Graphique page 1 (La carte de la région)==========*/
+
+section.Graphique-page1{
+    
+    /*border-radius: 8px;*/
+    margin-bottom: 30px;
+    /*background-color: blue;*/
+    margin-left: 30px;
+    height: 650px;
+    display: flex;
+
+    
+
+}
+
+
+#graph-page1 svg {
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    
+}
+
+#controls {
+    margin: 15px auto;
+    width: 60%;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    }
+
+#yearValue {
+
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #000;
+    }
+
+input[type="range"] {
+    width: 80%;
+    /*-webkit-appearance: none;   à mettre ou pas pour le slider plus noir */
+    height: 8px;
+    border-radius: 8px;
+    background: #ddd;
+    outline: none;
+    transition: background 0.3s;
+    cursor: pointer;
+    }
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #000;
+    cursor: pointer;
+    transition: background 0.3s;
+    }
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    background: #000;
+    }
+
+
+#tooltip {
+    position: absolute;
+    opacity: 0;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 8px 12px;
+    border-radius: 4px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+    pointer-events: none;
+    font-size: 14px;
+    color: #333;
+    }
+
+
+
+
+/* ==================================== DEUXIEME PAGE ================================*/
+
+
+
+/* ========= SECTION BOUTONS==========*/ 
+/*Peut être supprimée pour vos besoins spécifiques*/
+
+section.Boutons {
+    margin-left: 50px;
+    display: flex;
+    justify-content: space-between;
+    height: 3vh;
+    width: 20vh;
+    padding: 25px;
+    font-size: 20px;
+    
+    gap: 10px;
+
+
+}
+.btn {
+    border: 2px solid #ddd;
+    background-color: #fff;
+    color: #666;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+.btn.active {
+    background-color: #000091;
+    border: 2px solid #ddd;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+
+    color: white;
+    
+    font-weight: bold;
+    
+}
+
+
+
+
+
+
+
+
+/* ========== SECTION Graphique page 2 =========== */
+
+
+section.Graphique-page2 {
+    
+    display: flex; /* on les mets en ligne */
+    justify-content: space-around; /* on met de l'espace entre les deux */
+    
+    
+    
+    height: 590px; /* paramètre qui va varier */
+}
+
+
+section.Graphique-page2 svg {
+    
+    height: 700px;
+    width: 180vh;
+    
+    
+}
+
+
+#Controls-page2 div {
+    width: 140vh;
+    align-items: center;
+
+}
+/* ========== SECTION Bas de page 2 =========== */
+
+#image-bas-de-page img {
+    
+    height: 60px;
+    width: 6vh;
+    margin-right: 15px;
+}
+/* Contexte */
