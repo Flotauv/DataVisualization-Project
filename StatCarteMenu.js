@@ -23,14 +23,14 @@ const width_page1 = 1250; // largeur de la carte
 const height_page1 = 600;
 
 const svg_page1 = d3.select('svg')
-    .attr('width',width_page1)
-    .attr('height',height_page1);
+    .attr('width', width_page1)
+    .attr('height', height_page1);
 
 // Projection centrée Rhône-Alpes
 const projection = d3.geoMercator()
-.center([4.5, 45.5]) // centré Rhône-Alpes
-.scale(8000)          // zoom
-.translate([width_page1 / 2, height_page1 / 2]);
+    .center([4.5, 45.5]) // centré Rhône-Alpes
+    .scale(8000)          // zoom
+    .translate([width_page1 / 2, height_page1 / 2]);
 
 // Projection des contours des départements
 const path = d3.geoPath().projection(projection);
@@ -42,47 +42,47 @@ const tooltip = d3.select("#tooltip");
 const yearSlider = d3.select("#year_slider");
 const yearLabel = d3.select("#year_label");
 
-// ✅ Échelle couleur adaptée aux pourcentages (0% → vert / 6% → rouge)
-const colorScale = d3.scaleSequential()
-.domain([0, 6])  
-.interpolator(t => d3.interpolateRdYlGn(1 - t))
-.unknown("#ccc");
+// Échelle couleur adaptée aux pourcentages (0% → vert / 6% → rouge)
+const colorScale = d3.scaleLinear()
+    .domain([0, 1.5, 3, 4.5, 6])
+    .range(['#91AE4F', '#00AC8C', '#FF6F4C', '#FF9940', '#E1000F'])
+    .unknown("#ccc");
 
 // ================= Chargement CSV & initialisation =============== //
 
 Papa.parse("dataset/db_CrimesDelits.csv", {
-    download : true,
-    header : true,
-    delimiter :",",
-    complete : function(results) {
+    download: true,
+    header: true,
+    delimiter: ",",
+    complete: function (results) {
 
-        console.log("CSV chargé :",results.data)
+        console.log("CSV chargé :", results.data);
         const data = results.data;
 
-        const years = [... new Set(data.map(d => d.annee))].sort();
+        const years = [...new Set(data.map(d => d.annee))].sort();
         let savedIndex = sessionStorage.getItem("sliderIndex");
         let initialIndex = savedIndex !== null ? parseInt(savedIndex) : 0;
         if (initialIndex >= years.length || initialIndex < 0 || isNaN(initialIndex)) initialIndex = 0;
 
-        yearSlider.attr("min",0).attr("max",years.length-1).attr("value",initialIndex);
+        yearSlider.attr("min", 0).attr("max", years.length - 1).attr("value", initialIndex);
         yearLabel.text(years[initialIndex]);
 
         // Chargement carte GeoJSON
         d3.json("dataset/departements-auvergne-rhone-alpes.geojson").then(geojson => {
 
             // ================= Fonction de mise à jour =============== //
-            function UpdateMap(selectedYear){
+            function UpdateMap(selectedYear) {
 
                 // Filtrer Crimes + Délits
                 const filtered = data.filter(d =>
-                    d.annee === selectedYear && 
+                    d.annee === selectedYear &&
                     (d.Type === "Délit" || d.Type === "Crime")
                 );
 
                 // Compter crimes+délits par département
                 const taux = {};
                 filtered.forEach(d => {
-                    const code = d.Code_departement?.padStart(2,"0");
+                    const code = d.Code_departement?.padStart(2, "0");
                     const nombre = parseInt(d.nombre) || 0;
                     taux[code] = (taux[code] || 0) + nombre;
                 });
@@ -99,64 +99,112 @@ Papa.parse("dataset/db_CrimesDelits.csv", {
 
                 // Dessiner les départements
                 paths.enter()
-                .append("path")
-                .merge(paths)
-                .attr("d", path)
-                .attr("stroke", "#fff")
-                .attr("stroke-width", 1)
+                    .append("path")
+                    .merge(paths)
+                    .attr("d", path)
+                    .attr("stroke", "#fff")
+                    .attr("stroke-width", 1)
+                    .on("mouseenter", (event, d) => {
+                        d3.select(event.currentTarget)
+                            .transition().duration(200)
+                            .attr("stroke-width", 2)
+                            .attr("stroke", "#333");
+                    })
+                    .on("mousemove", (event, d) => {
+                        const code = d.properties.code;
+                        const nom = d.properties.nom;
+                        const val = taux[code] || 0;
 
-                // Hover
-                .on("mouseenter",(event,d) => {
-                    d3.select(event.currentTarget)
-                    .transition().duration(200)
-                    .attr("stroke-width",2)
-                    .attr("stroke","#333");
-                })
-
-                .on("mousemove",(event,d)=>{
-                    const code = d.properties.code;
-                    const nom = d.properties.nom;
-                    const val = taux[code] || 0;
-
-                    tooltip.style("opacity", 1)
-                        .style("left", (event.pageX + 10) + "px")
-                        .style("top", (event.pageY + 10) + "px")
-                        .html(`<strong>${nom}</strong><br>${val.toFixed(2)}% crimes/délits`);
-                })
-
-                .on("mouseleave",(event,d)=>{
-                    d3.select(event.currentTarget)
-                    .transition().duration(200)
-                    .attr("stroke-width",1)
-                    .attr("stroke","#fff");
-                    tooltip.style("opacity",0);
-                })
-
-                .on("click",(event,d) => {
-                    sessionStorage.setItem("code_dpt",d.properties.code);
-                    sessionStorage.setItem("nom_dpt",d.properties.nom);
-                    window.location.href = "Carte2.html";
-                })
-
-                // Coloration selon taux %
-                .transition().duration(500)
-                .attr("fill", d => colorScale(taux[d.properties.code] || 0));
-
-            };
+                        tooltip.style("opacity", 1)
+                            .style("left", (event.pageX + 10) + "px")
+                            .style("top", (event.pageY + 10) + "px")
+                            .html(`<strong>${nom}</strong><br>${val.toFixed(2)}% crimes/délits`);
+                    })
+                    .on("mouseleave", (event, d) => {
+                        d3.select(event.currentTarget)
+                            .transition().duration(200)
+                            .attr("stroke-width", 1)
+                            .attr("stroke", "#fff");
+                        tooltip.style("opacity", 0);
+                    })
+                    .on("click", (event, d) => {
+                        sessionStorage.setItem("code_dpt", d.properties.code);
+                        sessionStorage.setItem("nom_dpt", d.properties.nom);
+                        window.location.href = "Carte2.html";
+                    })
+                    // Coloration selon taux %
+                    .transition().duration(500)
+                    .attr("fill", d => colorScale(taux[d.properties.code] || 0));
+            }
 
             // Initialisation
             UpdateMap(years[initialIndex]);
+
+            // ================= LÉGENDE COULEURS =================== //
+            const legendWidth = 300;
+            const legendHeight = 10;
+
+            const legendSvg = svg_page1.append("g")
+                .attr("class", "legend")
+                .attr("transform", `translate(${width_page1 - legendWidth - 50}, ${height_page1 - 50})`);
+
+            // Échelle pour positionner les couleurs
+            const legendScale = d3.scaleLinear()
+                .domain(colorScale.domain())
+                .range([0, legendWidth]);
+
+            // Dégradé
+            const defs = svg_page1.append("defs");
+            const linearGradient = defs.append("linearGradient")
+                .attr("id", "legend-gradient");
+
+            linearGradient.selectAll("stop")
+                .data(colorScale.range().map((color, i) => ({
+                    offset: `${(i / (colorScale.range().length - 1)) * 100}%`,
+                    color: color
+                })))
+                .enter()
+                .append("stop")
+                .attr("offset", d => d.offset)
+                .attr("stop-color", d => d.color);
+
+            // Rectangle de la légende
+            legendSvg.append("rect")
+                .attr("width", legendWidth)
+                .attr("height", legendHeight)
+                .style("fill", "url(#legend-gradient)")
+                .attr("stroke", "#333")
+                .attr("stroke-width", 0.5);
+
+            // Axe
+            const legendAxis = d3.axisBottom(legendScale)
+                .tickValues(colorScale.domain())
+                .tickFormat(d => d + " %");
+
+            legendSvg.append("g")
+                .attr("transform", `translate(0, ${legendHeight})`)
+                .call(legendAxis)
+                .selectAll("text")
+                .style("font-size", "12px");
+
+            // Titre
+            legendSvg.append("text")
+                .attr("x", legendWidth / 2)
+                .attr("y", -8)
+                .attr("text-anchor", "middle")
+                .style("font-size", "13px")
+                .style("font-weight", "bold")
+                .text("Taux de crimes et délits (%)");
 
             // Slider
             yearSlider.on("input", (event) => {
                 const index = +event.target.value;
                 const selectedYear = years[index];
-                sessionStorage.setItem("sliderIndex",index.toString());
+                sessionStorage.setItem("sliderIndex", index.toString());
+                sessionStorage.setItem("selectedYear", selectedYear);
                 yearLabel.text(selectedYear);
                 UpdateMap(selectedYear);
             });
-
         });
-
     }
 });
