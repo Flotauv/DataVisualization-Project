@@ -17,4 +17,3 @@ EXPOSE 80
 
 CMD ["apache2ctl", "-D", "FOREGROUND"]
 
-# linux command : docker run --rm --name myapache -d -p 8080:80 my_container_image_name
