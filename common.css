@@ -23,12 +23,10 @@ body {
 /* ========= SECTION HAUT-DE-PAGE==========*/
 
 section.Haut-de-page {
-    
-    
     height: 200px;
     margin-left: 30px;
-    
 }
+
 nav.nav {
     display: flex;
     justify-content: space-between;
@@ -36,10 +34,9 @@ nav.nav {
     align-items: center;
     width: 50vh;
     padding: 25px; /* marge interne */
-    
-    
-
 }
+
+
 nav a  {
     text-decoration: none;
     color: #000000;
@@ -47,7 +44,6 @@ nav a  {
 }
 
 nav.nav li {
-
     justify-content: space-between;
 }
 
@@ -66,8 +62,6 @@ nav.nav li {
 /* Image de la police comprise dans le header appelé header-top */
 header.header-top img {
     width: 150px;
-    
-
 }
 /* ==================================== CONTEXTE ================================*/
 
@@ -106,15 +100,11 @@ section.Graphique-page1{
     margin-left: 30px;
     height: 650px;
     display: flex;
-
-    
-
 }
 
 
 #graph-page1 svg {
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1); 
 }
 
 #controls {
@@ -124,16 +114,14 @@ section.Graphique-page1{
     display: flex;
     flex-direction: column;
     align-items: center;
-    
-    }
+}
 
 #yearValue {
-
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 10px;
     color: #000;
-    }
+}
 
 input[type="range"] {
     width: 80%;
@@ -144,7 +132,7 @@ input[type="range"] {
     outline: none;
     transition: background 0.3s;
     cursor: pointer;
-    }
+}
 
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
@@ -155,7 +143,7 @@ input[type="range"]::-webkit-slider-thumb {
     background: #000;
     cursor: pointer;
     transition: background 0.3s;
-    }
+}
 
 input[type="range"]::-webkit-slider-thumb:hover {
     background: #000;

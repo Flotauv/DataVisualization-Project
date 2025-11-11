@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title id="page3">page3</title>
+    <link rel="stylesheet" href="../common.css">
+    <link rel="stylesheet" href="page3.css"> <!-- for the button style  -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+</head>
+
+<body>
+    <!-- Common Section  -->
+    <section class="Haut-de-page">
+        <header class="header-top">
+            
+            <nav class="nav">
+                <img src="../assets/img/police_nationale.png" alt="logo du site">
+                <li> 
+                    <a href="../index.html">Accueil</a> 
+                </li>
+                <li> 
+                    <a href="../page1/page1.html">Carte</a>
+                </li>
+                <li>
+                    <b> Sources</b> 
+                </li>
+            </nav>
+
+            <div style="text-align:center">
+                <h1 class="page_title" id="page3_title" ></h1> 
+            </div>
+
+        </header>
+    </section>
+    
+   <section class="controls_page3">
+        <div id="controls">
+            <label for="year_slider">Année : <span id="year_label">2016</span></label>
+            <input 
+                type="range" 
+                id="year_slider" 
+                min="2016" 
+                max="2024" 
+                value="2016" 
+                step="1">
+        </div>
+    </section>
+
+   <!-- Page specific section  -->
+   <section class="Boutons">
+        <button class="btn  " id="délits"  onclick=setType(this) >Délits</button>
+        <button class="btn" id="crimes"  onclick=setType(this) >Crimes</button>
+    </section>
+
+    <section class="page3_graph">
+        <div id="page3_graph"></div>
+    </section>
+
+    <!-- Script page specific -->
+    <script src="page3.js"></script>
+
+</body>
+</html>

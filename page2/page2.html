@@ -1,41 +1,39 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=, initial-scale=1.0">
-    <title id="Carte2">Carte2</title>
-    <link rel="stylesheet" href="css/css_commun.css">
+    <title id="page2">page2</title>
+    <link rel="stylesheet" href="../common.css">
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-
-
 </head>
+
 <body>
     <section class="Haut-de-page">
         <header class="header-top">
+            
             <nav class="nav">
-                <img src="img/police_nationale.png" alt="logo du site">
+                <img src="../assets/img/police_nationale.png" alt="logo du site">
                 <li> 
-                    <a href="index.html">Accueil</a>
-                 </li>
-                <li> <a href="Carte.html">Carte</a>
+                    <a href="../index.html">Accueil</a> 
                 </li>
-                <li><b> Sources</b> </li>
+                <li> 
+                    <a href="../page1/page1.html">Carte</a>
+                </li>
+                <li>
+                    <b> Sources</b> 
+                </li>
             </nav>
 
             <div style="text-align:center">
-                <h1 class="Titre-page" id="Titre-page2" >
-                   
-                </h1> 
-                <script src="test.js"></script>
+                <h1 class="titre_page" id="titre_page2" ></h1> 
             </div>
-            
+
         </header>
-
     </section>
-
     
-
    <section class="Controls-page2">
     <div id="controls">
         <div id="yearValue">Année : <span id="year_label">–</span></div>
@@ -44,29 +42,24 @@
    </section>
 
    <section class="Boutons">
-        
         <button class="btn  " id="délits"  onclick=setActive(this) >Délits</button>
         <button class="btn" id="crimes"  onclick=setActive(this) >Crimes</button>
-        <script type="module" src="test.js"></script>
-
-        
-            
     </section>
 
 <!-- =========== SECTION GRAPHIQUE QUI PEUT BOUGER -->
     <section class="Graphique-page2">
-        
-
         <div id="graph-page2"></div>
-
-        
     </section>
 
     <section class="Bas-de-page">
         <div id="image-bas-de-page" align="right">
-            <img src="img/right-arrow.png" alt="fleche">
+            <a href="../page3/page3.html">
+            <img src="../assets/img/right-arrow.png" alt="flèche" style="cursor:pointer;">
+            </a>
         </div>
     </section>
-    <script src="main.js"></script>
+
+    <script src="page2.js"></script>
+
 </body>
 </html>
