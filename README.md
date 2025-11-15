@@ -13,14 +13,14 @@ Les graphiques sont réalisés grâce à la librairie D3.js
 
 - **Index.html** : Page d'accueil du site qui pose le contexte.
 
-- **Carte.html** : Carte de la région Auvergne Rhône Alpes avec le ration délits/crimes par région colorée selon l'échelle de couleur.  
+- **Page1** : Carte de la région Auvergne Rhône Alpes avec le ration délits/crimes par région colorée selon l'échelle de couleur.  
 Le slider permet de voir l'évolution de ce ration sur toute la région pour les différents départements qui l'a constitue.  
 La carte est intéractive
 
-- **Carte2.html** : Section graphique en barres inclinées comportant le nombre de  délits et de crimes de la region choisie sur la carte.  
+- **Page2** : Section graphique en barres inclinées comportant le nombre de  délits et de crimes de la region choisie sur la carte.  
 Le slider permet de naviguer suivant les années pour voir l'évolution des délits/crimes la région.
 
-- **Carte3.html** :   
+- **Page3** : Section graphique en bulles représentant le 
 - **data_processing.ipynb** : Notebook permettant le traitement en amont des sources de données récoltées.  
 - **css_commun.css** : Fichier permettant d'appliquer les features esthétiques aux éléments des fichiers .html . 
 - **main.js** : Fichier javascript  de développement des caractéristiques visibles sur le site.
@@ -59,16 +59,9 @@ docker run --rm --name myapache -d -p 8080:80 my_container_image_name
 
 ## Contacts
 
-Matis Jean :  
+Mathis Jean :  
 Leo Delpech :   
 Florent Saunier : florent.saunier13@gmail.com
-## To Do (à supprimer )
-
-- epuration contexte
-- faire analyse de ce qu'on fait lol => remplacer l'onglet sources par un truc du style conclusion 
-- connection flèche carte2 (flo)
-- Legende carte à rajouter (léo)
-- Page 3 bulle pour les sous cat , graphique bulle  pour les sous délits , les axes :  y le pourcentage du sous délit par apport aux délits totaux du departement  x : pourcentage par apport à la region pour la categorie  
 
 
 
