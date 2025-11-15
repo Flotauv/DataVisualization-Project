@@ -150,6 +150,9 @@ Papa.parse("../data/db_CrimesDelits.csv", {
             const legendMin = 0;
             const legendMax = 7;
 
+            // Valeur du taux national
+            const tauxNational = 5.33;
+
             const legendSvg = svg_page1.append("g")
                 .attr("class", "legend")
                 .attr("transform", `translate(${width_page1 - legendWidth - 50}, ${height_page1 - 50})`);
@@ -192,6 +195,28 @@ Papa.parse("../data/db_CrimesDelits.csv", {
                 .call(legendAxis)
                 .selectAll("text")
                 .style("font-size", "12px");
+
+            // Position X du taux national
+            const xNational = legendScale(tauxNational);
+
+            // Ligne verticale rouge
+            legendSvg.append("line")
+                .attr("x1", xNational)
+                .attr("x2", xNational)
+                .attr("y1", 0)
+                .attr("y2", legendHeight)
+                .attr("stroke", "black")
+                .attr("stroke-width", 2)
+                .attr("stroke-dasharray", "4 2");
+
+            // Label du taux national
+            legendSvg.append("text")
+                .attr("x", xNational)
+                .attr("y", legendHeight + 30)
+                .attr("text-anchor", "middle")
+                .style("font-size", "12px")
+                .style("font-weight", "600")
+                .text("Taux national : 5,33 %");
 
             // Titre
             legendSvg.append("text")
