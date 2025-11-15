@@ -55,7 +55,8 @@ Papa.parse("../data/db_CrimesDelits.csv", {
         console.log("CSV chargé :",results.data)
         const data = results.data;
 
-        const years = [... new Set(data.map(d => d.annee))].sort();
+        const years = [... new Set(data.map(d => d.annee))].sort().slice(0,9);
+       
         let savedIndex = sessionStorage.getItem("sliderIndex");
         let initialIndex = savedIndex !== null ? parseInt(savedIndex) : 0;
         if (initialIndex >= years.length || initialIndex < 0 || isNaN(initialIndex)) initialIndex = 0;
