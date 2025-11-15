@@ -289,7 +289,12 @@ section.Graphique-page2 svg {
 
 /* ====================================  QUATRIEME PAGE ================================*/
 
-section.paragraphe {
+section.paragraphe-carte {
+    margin-left: 50px;
+    border : solid 3px;
+}
+
+section.paragraphe-graph-barres {
     margin-left: 50px;
     border : solid 3px;
 }
