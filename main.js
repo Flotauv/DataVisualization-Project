@@ -165,6 +165,62 @@ if (isCarte){
 
             // Initialisation
                 UpdateMap(years[initialIndex]);
+            
+                        // ================= LÉGENDE COULEURS =================== //
+            const legendWidth = 300;
+            const legendHeight = 10;
+
+            const legendSvg = svg_page1.append("g")
+                .attr("class", "legend")
+                .attr("transform", `translate(${width_page1 - legendWidth - 50}, ${height_page1 - 50})`);
+
+            // Échelle pour positionner les couleurs
+            const legendScale = d3.scaleLinear()
+                .domain(colorScale.domain())
+                .range([0, legendWidth]);
+
+            // Dégradé
+            const defs = svg_page1.append("defs");
+            const linearGradient = defs.append("linearGradient")
+                .attr("id", "legend-gradient");
+
+            linearGradient.selectAll("stop")
+                .data(colorScale.range().map((color, i) => ({
+                    offset: `${(i / (colorScale.range().length - 1)) * 100}%`,
+                    color: color
+                })))
+                .enter()
+                .append("stop")
+                .attr("offset", d => d.offset)
+                .attr("stop-color", d => d.color);
+
+            // Rectangle de la légende
+            legendSvg.append("rect")
+                .attr("width", legendWidth)
+                .attr("height", legendHeight)
+                .style("fill", "url(#legend-gradient)")
+                .attr("stroke", "#333")
+                .attr("stroke-width", 0.5);
+
+            // Axe
+            const legendAxis = d3.axisBottom(legendScale)
+                .tickValues(colorScale.domain())
+                .tickFormat(d => d + " %");
+
+            legendSvg.append("g")
+                .attr("transform", `translate(0, ${legendHeight})`)
+                .call(legendAxis)
+                .selectAll("text")
+                .style("font-size", "12px");
+
+            // Titre
+            legendSvg.append("text")
+                .attr("x", legendWidth / 2)
+                .attr("y", -8)
+                .attr("text-anchor", "middle")
+                .style("font-size", "13px")
+                .style("font-weight", "bold")
+                .text("Taux de crimes et délits (%)");
 
             // Slider
                 yearSlider.on("input", (event) => {
