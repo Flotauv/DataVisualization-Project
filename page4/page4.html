@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="page1">page1</title>
+    <title id="page4">page4</title>
     <link rel="stylesheet" href="../common.css">
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
@@ -14,7 +14,7 @@
 
 <body>
     <div data-barba="wrapper">
-        <div data-barba="container" data-barba-namespace="page1"></div>
+        <div data-barba="container" data-barba-namespace="page4"></div>
     </div>
 
     <section class="Haut-de-page">
@@ -26,36 +26,17 @@
                     <a href="../index.html">Accueil</a> 
                 </li>
                 <li> 
-                    <a href="page1.html">Carte</a>
+                    <a href="../page1/page1.html">Carte</a>
                 </li>
                 <li>
-                    <a href="../page4/page4.html">Résultats</a> 
+                    <a href="page4.html">Résultats</a> 
                 </li>
             </nav>
 
             <div style="text-align:center">
-                <h1 class="Titre-page"> Évolution de la délinquance en Auvergne Rhône Alpes </h1> 
+                <h1 class="Titre-page"> Résultats</h1> 
             </div>
             
         </header>
     </section>
-
-    <section class="Controls">
-        <div id="controls">
-            <div id="yearValue">Année : <span id="year_label">–</span></div>
-            <input type="range" id="year_slider" min="0" max="10" value="0" step="1"> 
-        </div>
-    </section>
-
-    <section class="Graphique-page1">
-        <div id="graph-page1">
-            <svg></svg>
-        </div>
-
-        <div id="tooltip"></div>
-    </section>
-    
-    <script src="page1.js"></script>
-
 </body>
-</html>
