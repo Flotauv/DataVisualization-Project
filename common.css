@@ -40,6 +40,7 @@ nav.nav {
 nav a  {
     text-decoration: none;
     color: #000000;
+    font-weight: bold;
     
 }
 
@@ -49,7 +50,7 @@ nav.nav li {
 
 /* Titre principal de toutes les pages */
 .Titre-page {
-    color: black;
+    color:#000091;
     font-size: 45px;
     margin-top: 20px;
     /*border: 2px solid red;*/
@@ -285,4 +286,10 @@ section.Graphique-page2 svg {
     width: 6vh;
     margin-right: 15px;
 }
-/* Contexte */
+
+/* ====================================  QUATRIEME PAGE ================================*/
+
+section.paragraphe {
+    margin-left: 50px;
+    border : solid 3px;
+}
