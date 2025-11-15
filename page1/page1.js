@@ -143,9 +143,12 @@ Papa.parse("../data/db_CrimesDelits.csv", {
             // Initialisation
             UpdateMap(years[initialIndex]);
 
-                                    // ================= LÉGENDE COULEURS =================== //
+            // ================= LÉGENDE COULEURS =================== //
             const legendWidth = 300;
             const legendHeight = 10;
+
+            const legendMin = 0;
+            const legendMax = 7;
 
             const legendSvg = svg_page1.append("g")
                 .attr("class", "legend")
@@ -153,7 +156,7 @@ Papa.parse("../data/db_CrimesDelits.csv", {
 
             // Échelle pour positionner les couleurs
             const legendScale = d3.scaleLinear()
-                .domain(colorScale.domain())
+                .domain([legendMin, legendMax])
                 .range([0, legendWidth]);
 
             // Dégradé
