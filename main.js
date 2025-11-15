@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // ================= DETECTION DE PAGE =================== //
 const isCarte = document.getElementById("Carte") !== null;
 const isCarte2 = document.getElementById("Carte2") !== null;
@@ -548,3 +549,5 @@ if (isCarte2){
     
 
 };
+=======
+>>>>>>> c0b2d60c2902169d121b44bb6a8297e964557d58
