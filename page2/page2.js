@@ -3,7 +3,7 @@ let code_dpt = sessionStorage.getItem("code_dpt");
 let selectedYear = sessionStorage.getItem("selectedYear");
 let nom_dpt = sessionStorage.getItem("nom_dpt");
 
-document.getElementById("titre_page2").textContent = "Crimes et délits pour la région :    " + nom_dpt;
+document.getElementById("id_titre_page2").textContent = "Crimes et délits pour la région :    " + nom_dpt;
 
 Papa.parse("../data/db_CrimesDelits.csv", {
     download : true,
@@ -11,9 +11,10 @@ Papa.parse("../data/db_CrimesDelits.csv", {
     delimiter :",",
     complete : function(results) {
 
-        console.log("CSV chargé  :",results.data)
         const data = results.data;
-        const years = [... new Set(data.map(d => d.annee))].sort();
+        //const years = [... new Set(data.map(d => d.annee))].sort();
+        const years = [... new Set(data.map(d => d.annee))].sort().slice(0,9);
+
         console.log("Années dispo :",years)
 
         let savedIndex = sessionStorage.getItem("sliderIndex");
@@ -71,15 +72,16 @@ function setActive(element) {
             console.log("CSV chargé  :",results.data)
             const data = results.data;
             // Extraire les années uniques triées
-            const years = [... new Set(data.map(d => d.annee))].sort();
-            console.log("Années dispo :",years)
+            const years = [... new Set(data.map(d => d.annee))].sort().slice(0,9);
+
+            
 
             selectedYear = sessionStorage.getItem("selectedYear");
 
             let savedIndex = sessionStorage.getItem("sliderIndex");
-            console.log("LE SLIDER QUAND ON TOUCHE UN BTN EST :",savedIndex);
+            
             let initialIndex = years.indexOf(selectedYear);
-            console.log("Le nouvel index suivit BIIIIITE ",initialIndex);
+            
             if (initialIndex === -1){
                 initialIndex = 0;
                 selectedYear=years[0];
@@ -89,7 +91,6 @@ function setActive(element) {
             const yearSlider = d3.select("#year_slider");
             const yearLabel = d3.select("#year_label");  
 
-            console.log("Les variables de la page 1 sur la page 2 sont : ",code_dpt,",",selectedYear,",",nom_dpt);
 
             // Slider des années
             yearSlider
@@ -107,7 +108,6 @@ function setActive(element) {
                     return d.Code_departement?.padStart(2,"0") === codeDpt &&
                     d.Type=== infractionType && d.annee === selectedYear
                 })
-                console.log("Dataset filtré code et année :",filtered)
 
                 const aggregate = {};
                 filtered.forEach(d => {
@@ -116,13 +116,11 @@ function setActive(element) {
                     aggregate[indicateur] = (aggregate[indicateur]||0)+nombre;
                 });
 
-                console.log("aggre récup",aggregate)
 
                 const chartData = Object.entries(aggregate).map(([indicateur,count])=>({
                         type : indicateur,
                         count : count
                     }));
-                console.log("Données pour l'année ",selectedYear," et pour la région ",codeDpt,":",chartData)
 
                 d3.select("#graph-page2").selectAll("svg").remove();
 
@@ -130,7 +128,7 @@ function setActive(element) {
 
                 function createBarChart(data){
                     const margin = { top: 70, right: 70, bottom: 60, left: 320 };
-                    const width = 1000 + margin.left + margin.right ;
+                    const width = 600 + margin.left + margin.right ;
                     const height = 300 + margin.top + margin.bottom;
 
                     data.sort((a,b) =>  a.count -  b.count);
@@ -157,6 +155,7 @@ function setActive(element) {
                     const yAxis = d3.axisLeft(y)
                         .tickSize(0)
                         .tickPadding(20);
+                        
 
                     svg.selectAll(".bar")
                         .data(data)
@@ -189,6 +188,17 @@ function setActive(element) {
                         return d.toUpperCase();
                         })
                         .style("font-size","9px");
+                                        // Source - https://stackoverflow.com/a
+                    // Posted by mbostock
+                    // Retrieved 2025-11-16, License - CC BY-SA 3.0
+
+                    svg.append("text")
+                        .attr("class", "x label")
+                        .attr("text-anchor", "end")
+                        .attr("x", width)
+                        .attr("y", height - 3)
+                        .text("Nombre d'infractions");
+
 
                     // Add labels to the end of each bar
                     svg.selectAll(".label")
