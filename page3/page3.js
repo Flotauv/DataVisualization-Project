@@ -1,15 +1,18 @@
-
 //! ===== 0. Slider and Buttons Methods =====
 function setType(button){
-    infractionType = button.id === "délits" ? "Délit" : "Crime";
+    infractionType = button.id === "delits" ? "delitType" : "crimeType";
     sessionStorage.setItem("isDelit", infractionType);
     // Update button styles
-    document.getElementById("délits").classList.remove("active");
+    document.getElementById("delits").classList.remove("active");
     document.getElementById("crimes").classList.remove("active");
     button.classList.add("active");
     // Refresh chart
     loadDataAndCreateChart();
 }
+
+
+
+
 
 // Retrieve previously selected year from sessionStorage, or default to 2016
 const savedYear = sessionStorage.getItem("selectedYear");
