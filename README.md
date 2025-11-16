@@ -20,10 +20,15 @@ La carte est intéractive
 - **Page2** : Section graphique en barres inclinées comportant le nombre de  délits et de crimes de la region choisie sur la carte.  
 Le slider permet de naviguer suivant les années pour voir l'évolution des délits/crimes la région.
 
-- **Page3** : Section graphique en bulles représentant le 
-- **data_processing.ipynb** : Notebook permettant le traitement en amont des sources de données récoltées.  
-- **css_commun.css** : Fichier permettant d'appliquer les features esthétiques aux éléments des fichiers .html . 
-- **main.js** : Fichier javascript  de développement des caractéristiques visibles sur le site.
+- **Page3** : Section graphique en bulles.
+
+- **Page4** : Section consacrée aux résultats. 
+
+- **.temp** : Notebook permettant le traitement en amont des sources de données récoltées.
+  
+- **Common.css** : Fichier permettant d'appliquer les features esthétiques aux éléments des fichiers .html.
+
+- **.docker** : Dossier qui comprend le dockerfile.  
 
 
 ### Dockerfile 
