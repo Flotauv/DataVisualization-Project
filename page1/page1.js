@@ -52,7 +52,6 @@ Papa.parse("../data/db_CrimesDelits.csv", {
     delimiter :",",
     complete : function(results) {
 
-        console.log("CSV chargé :",results.data)
         const data = results.data;
 
         const years = [... new Set(data.map(d => d.annee))].sort().slice(0,9);
