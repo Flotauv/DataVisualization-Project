@@ -1,164 +1,211 @@
-//! ===== 0. Slider and Buttons Methods =====
+//! ===== 0. Retrieve Dpt Info from page2 =====
+let code_dpt = sessionStorage.getItem("code_dpt");
+let name_dpt = sessionStorage.getItem("nom_dpt");
+let selected_year = sessionStorage.getItem("selectedYear");
+let infraction_type = sessionStorage.getItem("isDelit");
+
+console.log("Code Department: " + code_dpt + " | Name Department: " + name_dpt);
+console.log("Selected Year: " + selected_year + " | Infraction Type: " + infraction_type);
+
+document.getElementById("page3_title").textContent = infraction_type + " pour la région : " + name_dpt;
+
+//! ===== I. Slider and Buttons Methods =====
+const yearSlider = d3.select("#year_slider");
+const yearLabel = d3.select("#year_label");
+yearLabel.text(selected_year);
+
+yearSlider.on("input", (event) => {
+    selected_year = event.target.value;
+    sessionStorage.setItem("selectedYear", selected_year);
+    yearLabel.text(selected_year);
+    update_graph();
+    console.log("Selected year:", selected_year);
+});
+
 function setType(button){
-    infractionType = button.id === "delits" ? "delitType" : "crimeType";
-    sessionStorage.setItem("isDelit", infractionType);
-    // Update button styles
+    infraction_type = button.id === "delits" ? "Délits" : "Crimes";
+    sessionStorage.setItem("isDelit", infraction_type);
     document.getElementById("delits").classList.remove("active");
     document.getElementById("crimes").classList.remove("active");
     button.classList.add("active");
-    // Refresh chart
-    loadDataAndCreateChart();
+    document.getElementById("page3_title").textContent = infraction_type + " pour la région : " + name_dpt;
+    console.log("Selected type:", infraction_type);
+    update_graph();
 }
 
+//! ===== II. Retrieve Data =====
+function update_graph() {
+    // --- 1. Load Data ---
+    Papa.parse("../data/db_CrimesDelits.csv", {
+        download: true,
+        header: true,
+        delimiter: ",",
 
+        // --- 2. Create Required DataStructure for Bubble Plot ---
+        complete: function(results) {
+            const data = results.data;
+            const i_type = infraction_type === "Délits" ? "Délit" : "Crime";
 
+            // i. Filter data
+            const data_region = data.filter(d =>
+                d.annee === selected_year && 
+                d.Type === i_type
+            );
 
+            const data_dpt = data.filter(d =>
+                d.annee === selected_year && 
+                d.Type === i_type &&
+                d.Code_departement === code_dpt
+            );
 
-// Retrieve previously selected year from sessionStorage, or default to 2016
-const savedYear = sessionStorage.getItem("selectedYear");
-const initialYear = savedYear ? parseInt(savedYear, 10) : 2016;
+            // ii. Get useful totals
+            const totals_by_category = d3.rollup(
+                data_region,
+                v => d3.sum(v, d => +d.nombre),
+                d => d.indicateur
+            );
 
-// Select slider and label elements
-const year_slider = document.getElementById("year_slider");
-const year_label = document.getElementById("year_label");
+            const total_all_dpt = d3.sum(data_dpt, d => +d.nombre);
 
-// Initialize slider and label
-year_slider.value = initialYear;
-year_label.textContent = initialYear;
+            // iii. Grouping
+            const categories = [];
+            data_dpt.forEach(d => {
+                const indic = d.indicateur;
+                const quantity = +d.nombre;
+                const total_cat = totals_by_category.get(indic);
+                categories.push({
+                    category: indic,
+                    qty: quantity,
+                    prop_cat: quantity / total_all_dpt,
+                    prop_region: quantity / total_cat
+                });
+            });
 
-// Update both the label and sessionStorage when the user moves the slider
-year_slider.addEventListener("input", (event) => {
-  const selectedYear = parseInt(event.target.value, 10);
-  year_label.textContent = selectedYear;
-  sessionStorage.setItem("selectedYear", selectedYear);
-  console.log("Selected year:", selectedYear);
+            console.log("GRAPH DATA:", categories);
+            make_graph(categories);
+        }
+    });
+}
 
-  // Optional: refresh chart or visualization
-  loadDataAndCreateChart(selectedYear, infractionType, code_dpt);
-});
+//! ===== III. Graphs Functions =====
+function make_graph(categories) {
+    // Clear previous chart and tooltip
+    d3.select("#graph").selectAll("*").remove();
 
+    const width = 1150;
+    const height = 500;
+    const margin = { top: 50, right: 150, bottom: 60, left: 60 };
 
+    const svg = d3.select("#graph").append("svg")
+        .attr("width", width)
+        .attr("height", height);
 
+    const chart = svg.append("g")
+        .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-//! ===== I. Retrieve Information =====
-const year_slider = document.getElementById("year_slider");
-const selected_year = yearSlider.value;
+    const innerWidth = width - margin.left - margin.right;
+    const innerHeight = height - margin.top - margin.bottom;
 
-let code_dpt = sessionStorage.getItem("code_dpt");
-let nom_dpt = sessionStorage.getItem("nom_dpt");
-let infractionType = sessionStorage.getItem("isDelit") || "Délit";
+    // Scales
+    const x = d3.scaleLinear()
+        .domain([0, d3.max(categories, d => d.prop_region) * 100])
+        .range([0, innerWidth]);
 
-
-
-
-//! ===== I. Retrieve Information =====
-document.getElementById("page3_title").textContent = "Détails pour le département : " + nom_dpt;
-
-
-
-Papa.parse("../data/db_CrimesDelits.csv", {
-    download: true,
-    header: true,
-    delimiter: ",",
-    complete: function(results) {
-        const data = results.data;
-
-        // Filter data by selected department, year, and infraction type
-        const filtered = data.filter(d => 
-            d.Code_departement?.padStart(2,"0") === code_dpt &&
-            d.Type === infractionType &&
-            d.annee === selected_year
-        );
-
-        // Aggregate if needed (e.g., sum by indicator)
-        const aggregate = {};
-        filtered.forEach(d => {
-            const key = d.indicateur;
-            const value = parseInt(d.nombre) || 0;
-            aggregate[key] = (aggregate[key] || 0) + value;
-        });
-
-        // Convert to array for D3
-        const chartData = Object.entries(aggregate).map(([key, value]) => ({
-            indicateur: key,
-            nombre: value
-        }));
-
-        createBubbleChart(chartData);
-    }
-});
-
-// ================== Bubble Chart ==================
-function createBubbleChart(data){
-    // Clear old chart
-    d3.select("#graph-page3").selectAll("svg").remove();
-
-    const margin = {top: 50, right: 50, bottom: 70, left: 100};
-    const width = 1000 - margin.left - margin.right;
-    const height = 500 - margin.top - margin.bottom;
-
-    const svg = d3.select("#graph-page3")
-        .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-        .attr("transform", `translate(${margin.left},${margin.top})`);
-
-    // X scale (e.g., indicator names as ordinal, or numbers if numeric)
-    const x = d3.scaleBand()
-        .domain(data.map(d => d.indicateur))
-        .range([0, width])
-        .padding(0.4);
-
-    // Y scale (number of incidents)
     const y = d3.scaleLinear()
-        .domain([0, d3.max(data, d => d.nombre) * 1.1])
-        .range([height, 0]);
+        .domain([0, d3.max(categories, d => d.prop_cat) * 100])
+        .range([innerHeight, 0]);
 
-    // Bubble size scale
     const r = d3.scaleSqrt()
-        .domain([0, d3.max(data, d => d.nombre)])
-        .range([5, 40]);  // min/max bubble radius
+        .domain([0, d3.max(categories, d => d.qty)])
+        .range([5, 30]);
 
-    // X axis
-    svg.append("g")
-        .attr("transform", `translate(0,${height})`)
-        .call(d3.axisBottom(x))
-        .selectAll("text")
-        .attr("transform","rotate(-40)")
-        .style("text-anchor","end");
+    const color = d3.scaleOrdinal(d3.schemeCategory10)
+        .domain([...new Set(categories.map(d => d.category))]);
 
-    // Y axis
-    svg.append("g")
-        .call(d3.axisLeft(y));
+    // Axes
+    chart.append("g")
+        .attr("transform", `translate(0, ${innerHeight})`)
+        .call(d3.axisBottom(x).ticks(5).tickFormat(d => d + "%"));
+
+    chart.append("g")
+        .call(d3.axisLeft(y).ticks(5).tickFormat(d => d + "%"));
+
+    // Axis labels
+    svg.append("text")
+        .attr("x", width / 2)
+        .attr("y", height - 10)
+        .attr("text-anchor", "middle")
+        .text("Proportion par rapport à la région (%)");
+
+    svg.append("text")
+        .attr("x", -height / 2)
+        .attr("y", 15)
+        .attr("transform", "rotate(-90)")
+        .attr("text-anchor", "middle")
+        .text("Proportion par rapport au département (%)");
 
     // Tooltip
-    const tooltip = d3.select("body").append("div")
-        .attr("id","tooltip")
-        .style("position","absolute")
-        .style("padding","6px")
-        .style("background","#fff")
-        .style("border","1px solid #aaa")
-        .style("border-radius","4px")
-        .style("opacity",0);
+    const tooltip = d3.select("#graph").append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0)
+        .style("position", "absolute")
+        .style("background-color", "black")
+        .style("color", "white")
+        .style("padding", "5px 10px")
+        .style("border-radius", "5px");
+
+    const showTooltip = (event, d) => {
+        tooltip.transition().duration(200).style("opacity", 1);
+        tooltip.html(
+            `<strong>${d.category}</strong><br>
+            Qty: ${d.qty}<br>
+            Prop Cat: ${(d.prop_cat*100).toFixed(2)}%<br>
+            Prop Region: ${(d.prop_region*100).toFixed(2)}%`
+        )
+        .style("left", (event.pageX + 10) + "px")
+        .style("top", (event.pageY + 10) + "px");
+    };
+
+    const moveTooltip = (event) => {
+        tooltip.style("left", (event.pageX + 10) + "px")
+               .style("top", (event.pageY + 10) + "px");
+    };
+
+    const hideTooltip = () => tooltip.transition().duration(200).style("opacity", 0);
 
     // Draw bubbles
-    svg.selectAll("circle")
-        .data(data)
+    chart.selectAll("circle")
+        .data(categories)
         .enter()
         .append("circle")
-        .attr("cx", d => x(d.indicateur) + x.bandwidth()/2)
-        .attr("cy", d => y(d.nombre))
-        .attr("r", d => r(d.nombre))
-        .attr("fill","#001f5c")
-        .attr("opacity",0.7)
-        .on("mouseenter", (event,d) => {
-            tooltip.transition().duration(200).style("opacity",1);
-            tooltip.html(`<strong>${d.indicateur}</strong><br>Nombre: ${d.nombre}`)
-                .style("left", (event.pageX+10)+"px")
-                .style("top", (event.pageY+10)+"px");
-        })
-        .on("mouseleave", () => {
-            tooltip.transition().duration(200).style("opacity",0);
-        });
+        .attr("cx", d => x(d.prop_region * 100))
+        .attr("cy", d => y(d.prop_cat * 100))
+        .attr("r", d => r(d.qty))
+        .attr("fill", d => color(d.category))
+        .attr("opacity", 0.7)
+        .on("mouseover", showTooltip)
+        .on("mousemove", moveTooltip)
+        .on("mouseleave", hideTooltip);
+
+    // Legend
+    const legend = svg.append("g")
+        .attr("transform", `translate(${width - margin.right}, ${margin.top})`);
+
+    [...new Set(categories.map(d => d.category))].forEach((cat, i) => {
+        legend.append("circle")
+            .attr("cx", 0)
+            .attr("cy", i * 20)
+            .attr("r", 6)
+            .style("fill", color(cat));
+
+        legend.append("text")
+            .attr("x", 12)
+            .attr("y", i * 20 + 5)
+            .text(cat)
+            .style("font-size", "12px")
+            .attr("alignment-baseline", "middle");
+    });
 }
+
+// Initial graph draw
+update_graph();
