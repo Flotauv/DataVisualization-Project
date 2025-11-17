@@ -3,6 +3,7 @@ let code_dpt = sessionStorage.getItem("code_dpt");
 let name_dpt = sessionStorage.getItem("nom_dpt");
 let selected_year = sessionStorage.getItem("selectedYear");
 let infraction_type = sessionStorage.getItem("isDelit");
+let initialIndex = sessionStorage.getItem("sliderIndex");
 
 console.log("Code Department: " + code_dpt + " | Name Department: " + name_dpt);
 console.log("Selected Year: " + selected_year + " | Infraction Type: " + infraction_type);
@@ -12,7 +13,10 @@ document.getElementById("page3_title").textContent = infraction_type + " pour la
 //! ===== I. Slider and Buttons Methods =====
 const yearSlider = d3.select("#year_slider");
 const yearLabel = d3.select("#year_label");
+
 yearLabel.text(selected_year);
+
+
 
 yearSlider.on("input", (event) => {
     selected_year = event.target.value;
@@ -20,6 +24,7 @@ yearSlider.on("input", (event) => {
     yearLabel.text(selected_year);
     update_graph();
     console.log("Selected year:", selected_year);
+    
 });
 
 function setType(button){

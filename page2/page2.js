@@ -18,9 +18,9 @@ Papa.parse("../data/db_CrimesDelits.csv", {
         console.log("Années dispo :",years)
 
         let savedIndex = sessionStorage.getItem("sliderIndex");
-        console.log(savedIndex)
+        
         let initialIndex = savedIndex !== null ? parseInt(savedIndex) : 0;
-        console.log(initialIndex)
+        
         if (initialIndex>= length.years || initialIndex <0 || initialIndex === NaN){
             initialIndex = 0;
         }
@@ -67,7 +67,7 @@ function setActive(element) {
     element.classList.add('active');
 
     let isDelit = element.id ==="délits"? 'Délit':'Crime';
-    console.log("brrrrrrr",isDelit);
+    
     sessionStorage.setItem("isDelit",isDelit);
 
     Papa.parse("../data/db_CrimesDelits.csv", {
@@ -87,7 +87,7 @@ function setActive(element) {
             let savedIndex = sessionStorage.getItem("sliderIndex");
             
             let initialIndex = years.indexOf(selectedYear);
-            console.log("index = ",initialIndex);
+            
             
             
             
