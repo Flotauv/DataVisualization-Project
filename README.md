@@ -25,7 +25,7 @@ Le slider permet de naviguer suivant les années pour voir l'évolution des dél
 - **Page4** : Section consacrée aux résultats. 
 
 - **.temp** : Notebook permettant le traitement en amont des sources de données récoltées.
-  
+
 - **Common.css** : Fichier permettant d'appliquer les features esthétiques aux éléments des fichiers .html.
 
 - **.docker** : Dossier qui comprend le dockerfile.  
@@ -62,11 +62,7 @@ docker run --rm --name myapache -d -p 8080:80 my_container_image_name
 [5] ["Le summun du cool : transition entre pages avec Barba.js!"](https://youtu.be/AqPszQw4B5k?si=RsaYHnvTxBmGqTNM)
 
 
-## Contacts
 
-Mathis Jean :  
-Leo Delpech :   
-Florent Saunier : florent.saunier13@gmail.com
 
 
 
