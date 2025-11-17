@@ -1,0 +1,50 @@
+/* --- Section container --- */
+.Boutons {
+    display: flex;
+    justify-content: center;  
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+/* --- Base button style --- */
+.btn {
+    display: inline-flex;           
+    align-items: center;            
+    justify-content: center;        
+    text-align: center;             
+    
+    background-color: #f5f5f5;
+    color: #001f5c;
+    border: 2px solid #001f5c;
+    border-radius: 12px;
+    padding: 0.8rem 2rem;           
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    letter-spacing: 0.5px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    line-height: 1;                 
+}
+
+/* --- Hover effect --- */
+.btn:hover {
+    background-color: #001f5c;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+}
+
+/* --- Active (selected) button --- */
+.btn.active {
+    background-color: #000091;
+    color: white;
+    border-color: #000091;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3) inset;
+}
+
+/* --- Optional click effect --- */
+.btn:active {
+    transform: scale(0.97);
+}
