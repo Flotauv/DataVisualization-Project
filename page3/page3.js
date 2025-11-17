@@ -14,9 +14,8 @@ document.getElementById("page3_title").textContent = infraction_type + " pour la
 const yearSlider = d3.select("#year_slider");
 const yearLabel = d3.select("#year_label");
 
+yearSlider.property("value", selected_year);
 yearLabel.text(selected_year);
-
-
 
 yearSlider.on("input", (event) => {
     selected_year = event.target.value;
@@ -26,6 +25,12 @@ yearSlider.on("input", (event) => {
     console.log("Selected year:", selected_year);
     
 });
+
+if (infraction_type === "Délits") {
+    document.getElementById("delits").classList.add("active");
+} else {
+    document.getElementById("crimes").classList.add("active");
+}
 
 function setType(button){
     infraction_type = button.id === "delits" ? "Délits" : "Crimes";
@@ -97,16 +102,16 @@ function make_graph(categories) {
     // Clear previous chart and tooltip
     d3.select("#graph").selectAll("*").remove();
 
-    const width = 1150;
-    const height = 500;
-    const margin = { top: 50, right: 150, bottom: 60, left: 60 };
+    const width = 1350;
+    const height = 700;
+    const margin = { top: 50, right: 280, bottom: 60, left: 130 };
 
     const svg = d3.select("#graph").append("svg")
         .attr("width", width)
         .attr("height", height);
 
     const chart = svg.append("g")
-        .attr("transform", `translate(${margin.left}, ${margin.top})`);
+        .attr("transform", `translate(${margin.left - 50}, ${margin.top})`);
 
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
@@ -140,14 +145,14 @@ function make_graph(categories) {
         .attr("x", width / 2)
         .attr("y", height - 10)
         .attr("text-anchor", "middle")
-        .text("Proportion par rapport à la région (%)");
+        .text("Proportion du département par rapport à la région, pour un même type d'infraction (%)");
 
     svg.append("text")
         .attr("x", -height / 2)
         .attr("y", 15)
         .attr("transform", "rotate(-90)")
         .attr("text-anchor", "middle")
-        .text("Proportion par rapport au département (%)");
+        .text("Proportion du type d'infraction par rapport au total d'infractions du département (%)");
 
     // Tooltip
     const tooltip = d3.select("#graph").append("div")
