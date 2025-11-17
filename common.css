@@ -224,6 +224,7 @@ section.Boutons {
     padding: 25px;
     font-size: 20px;
     
+    
     gap: 10px;
 
 
@@ -236,6 +237,7 @@ section.Boutons {
     cursor: pointer;
     border-radius: 5px;
     transition: all 0.3s ease;
+    
 }
 .btn.active {
     background-color: #000091;
@@ -295,7 +297,12 @@ section.Graphique-page2 svg {
 }
 /* ====================================  TROISIEME PAGE ================================*/
 
-
+#graph {
+    
+    margin-bottom: 60px;
+    margin-left: 40px;
+    margin-right: 40px;
+}
 
 /* ====================================  QUATRIEME PAGE ================================*/
 

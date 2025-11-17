@@ -103,7 +103,7 @@ function make_graph(categories) {
     d3.select("#graph").selectAll("*").remove();
 
     const width = 1350;
-    const height = 700;
+    const height = 600;
     const margin = { top: 50, right: 280, bottom: 60, left: 130 };
 
     const svg = d3.select("#graph").append("svg")
@@ -152,7 +152,9 @@ function make_graph(categories) {
         .attr("y", 15)
         .attr("transform", "rotate(-90)")
         .attr("text-anchor", "middle")
-        .text("Proportion du type d'infraction par rapport au total d'infractions du département (%)");
+        //.text("Proportion du type d'infraction par rapport au total d'infractions du département (%)");
+        .text("Nb d'infractions/ Nb total d'infractions du département (%)");
+
 
     // Tooltip
     const tooltip = d3.select("#graph").append("div")
