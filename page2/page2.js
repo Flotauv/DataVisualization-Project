@@ -24,7 +24,13 @@ Papa.parse("../data/db_CrimesDelits.csv", {
         if (initialIndex>= length.years || initialIndex <0 || initialIndex === NaN){
             initialIndex = 0;
         }
-    
+        if (initialIndex === 0){
+
+            //initialIndex = 0;
+            selectedYear=years[0];
+        };
+        console.log("initialIndex",initialIndex);
+        console.log("selectedYear",selectedYear);
         const yearSlider = d3.select("#year_slider");
         const yearLabel = d3.select("#year_label");  
 
@@ -81,15 +87,15 @@ function setActive(element) {
             let savedIndex = sessionStorage.getItem("sliderIndex");
             
             let initialIndex = years.indexOf(selectedYear);
+            console.log("index = ",initialIndex);
             
-            if (initialIndex === -1){
-                initialIndex = 0;
-                selectedYear=years[0];
-            }
+            
             
             
             const yearSlider = d3.select("#year_slider");
+            console.log("year slider : ",yearSlider);
             const yearLabel = d3.select("#year_label");  
+            console.log("year_label : ",yearLabel);
 
 
             // Slider des années
