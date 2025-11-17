@@ -89,7 +89,7 @@
         <section class="choix-graphique">
             <h2 id="sous-titre-2">Choix des graphiques</h2>
             <p>
-                Pous notre première visualisation, nous avons choisi d’utiliser une carte choroplèthe (carte avec un gradient de couleurs)
+                <strong>Pous notre première visualisation</strong>, nous avons choisi d’utiliser une carte choroplèthe (carte avec un gradient de couleurs)
                 représentant le pourcentage de crimes et délits rapporté à la population afin d’offrir une vision claire et intuitive
                 du niveau de délinquance sur le territoire. Ce choix permet de normaliser les données et de comparer équitablement
                 les départements, indépendamment de leur taille ou de leur population totale. La carte agit également comme un menu
@@ -97,23 +97,45 @@
                 plus détaillées. Ce fonctionnement progressif facilite l’exploration des données, tout en assurant une navigation fluide
                 du global vers le spécifique, conformément aux bonnes pratiques de visualisation et d'analyse exploratoire.
             </p>
-
             <p>
-                Pour notre seconde visualisation, nous proposons une visualisation détaillée du département sélectionné à partir de la carte.
+                Cependant, cette visualisation présente plusieurs limites.
+                Premièrement, bien que la normalisation par la population permette une comparaison entre départements, elle peut masquer d’autres dynamiques comme les effets liés à la densité urbaine.
+                De plus, la carte choroplèthe repose sur une représentation géographique qui peut induire un biais perceptif. Les départements
+                les plus grandes attirent davantage l’attention, même lorsqu’ils présentent des valeurs proches de leurs voisins.
+                Enfin, la granularité départementale reste relativement large. Elle ne permet pas d’analyser finement les disparités à l’intérieur
+                du territoire, par exemple entre zones urbaines et rurales au sein d’un même département. Ces limites doivent donc être gardées à l’esprit
+                lors de l’interprétation de la visualisation, et justifient l’intérêt des visualisations complémentaires disponibles dans les pages suivantes.
+            </p>
+            
+            <p>
+                <strong>Pour notre seconde visualisation</strong>, nous proposons une visualisation détaillée du département sélectionné à partir de la carte.
                 L’objectif est de décomposer la délinquance locale grâce à un double diagramme en barres : d’un côté les sous-catégories
                 de délits, et de l’autre les sous-catégories de crimes. Cette représentation permet de comparer directement les
                 contributions respectives de chaque type d’infraction et d’identifier les phénomènes les plus présents dans le département.
                 L’utilisateur peut ainsi comprendre, au-delà des chiffres globaux, la structure précise de la criminalité locale et les
                 catégories dominantes.
             </p>
+            
+            <p>
+            Cette visualisation présente également certaines limites.
+            Tout d’abord, la comparaison directe entre catégories repose sur des volumes qui peuvent varier fortement, ce qui amène certaines barres à dominer
+            visuellement le graphique et peut réduire la lisibilité des catégories moins fréquentes. Par ailleurs, cette approche reste statique et ne permet pas d’intégrer
+            l’évolution temporelle des infractions au sein du département, ce qui limite l’analyse dynamique des tendances.
+            </p>
 
             <p>
-                En cliquant sur l’un des deux histogrammes, l’utilisateur accède alors à notre troisième visualisation. C'est un niveau d’analyse encore plus fin.
+                <strong>Pour notre troisième visualisation</strong>, l'utilisateur y accède en cliquant sur l’un des deux histogrammes. C'est un niveau d’analyse encore plus fin.
                 La troisième page propose une visualisation en bulles positionnées en deux dimensions : l’axe vertical représente
                 la proportion de la sous-catégorie dans le total des crimes ou délits du département, tandis que l’axe horizontal
                 montre sa proportion à l’échelle régionale. Ce graphique permet de situer chaque sous-catégorie par rapport au reste
                 de la région et de repérer les phénomènes spécifiques à un territoire. L’utilisateur peut ainsi identifier quelles
                 infractions sont particulièrement sur-représentées ou sous-représentées dans le département choisi.
+            </p>
+            <p>
+                Cette dernière napproche comporte elle aussi plusieurs limites.
+                Le scatterplot à bulles implique une lecture bivariée qui peut devenir difficile pour un utilisateur non expert, notamment lorsque le graphique
+                contient de nombreuses sous-catégories. Notamment, le chevauchement des bulles peut nuire à la lisibilité et rendre certaines distinctions visuelles difficiles à percevoir. 
+                De plus, cette visualisation comme celle d’avant reste centrée sur une seule année et ne permet pas de saisir les évolutions temporelles ou les tendances.
             </p>
 
         </section>
