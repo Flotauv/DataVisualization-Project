@@ -66,6 +66,13 @@ header.header-top img {
 }
 /* ==================================== CONTEXTE ================================*/
 
+
+section.choix-graphique  table{
+    border: solid 3px;
+    align-items: center;
+    margin-left: 500px;
+}
+
 .image-wrapper {
     width: 80%;
     margin: 20px auto;
@@ -300,4 +307,8 @@ section.paragraphe-carte {
 section.paragraphe-graph-barres {
     margin-left: 50px;
     
+}
+
+#titre3 {
+    padding-left: 20px;
 }
